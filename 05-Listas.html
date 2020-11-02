@@ -1,0 +1,90 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+
+    <!--for-->
+    <div v-for="n in 10">{{ n }}</div>
+    <hr>
+
+    <!--For com indice-->
+    <ul>
+        <li v-for="(cor, i) in cores">{{ i + 1 }}) {{ cor }}</li>
+    </ul>
+    <hr>
+
+
+    <!--For com template-->
+    <template v-for="(cor, i) in cores">
+        <h1>{{ cor }}</h1>
+        <p>{{ i }}</p>
+    </template>
+    <hr>
+
+    <!--Chave valor-->
+    <!--for para as pessoasa-->
+    <ul>
+        <li v-for="pessoa in pessoas">
+            <hr>
+            {{pessoa.nome}}
+            <!--for para atributos da pessoa-->
+            <div v-for="(valor, chave, index) in pessoa">
+                
+                <template v-if="!Array.isArray(valor)"><!--Se não é lista só exibe-->
+                    {{ chave }} = {{ valor }} 
+                </template>
+                <template v-else><!--Se é lista faz outro for para notas-->
+                    Notas:
+                    <ul>
+                      <li v-for="nota in valor">{{ nota }}</li>
+                    </ul>
+                   
+                </template>
+
+
+
+
+
+
+
+            </div>
+        </li>
+    </ul>
+    <hr>
+
+    <!--For com key(como se fosse o ID do elemento)-->
+    <ul>
+        <!--Indice sempre é o segundo elemento-->
+        <li v-for="(elemento, i) in elementos" :key="elemento">{{ i + 1 }}) {{ elemento }}</li>
+    </ul>
+    <button @click="elementos.push('NOVO')">Adicionar</button>
+    <hr>
+
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            elemento: "oi",
+            elementos: [1, 2, 3],
+            cores: ['vermelho', 'verde', 'amarelo', 'azul'],
+            pessoas: [
+                { nome: 'Ana', idade: 26, peso: 59, notas: [7.67, 8.33, 6.98, 9.21] },
+                { nome: 'Guilherme', idade: 22, peso: 89, notas: [7.67, 8.33, 6.98, 9.21] }
+            ]
+        }
+    })
+</script>
+
+<style>
+    ul {
+        list-style: none;
+    }
+
+    h1,
+    p {
+        display: inline;
+    }
+</style>

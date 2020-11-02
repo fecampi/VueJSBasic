@@ -1,0 +1,54 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+
+    <!--versão reduzida para inserir valores nos atributos-->
+    <a :href="link">Google</a>
+
+    <!--A tag mustache vai ser trocada pelo valor da propriedade msg-->
+    <p>Mensagem: {{ titulo }}</p>
+    <hr>
+
+    <!--Produzir algo apenas uma vez-->
+    <p v-once>{{ titulo }}</p>
+    <hr>
+
+
+    <!-- inserir resultado das funções-->
+    <p>{{ saudacao() }}</p>
+    <p>{{ 4 + 1 }}</p>
+    <hr>
+
+    <!--inserir como código HTML-->
+    <p v-html="linkHtml"></p>
+    <hr>
+
+    <!-- inserir valores nos atributos do html-->
+    <a v-bind:href="link">Google</a>
+
+
+
+    <hr>
+
+</div>
+
+<script>
+
+    // aplicação Vue é iniciada com a criação de uma nova instância Vue.
+    new Vue({
+
+        el: '#app',
+        data: {
+            titulo: 'Usando VueJS!',
+            link: 'http://google.com.br',
+            linkHtml: '<a href="http://google.com">Google</a>'
+        },
+        methods: {
+            saudacao: function () {
+                this.titulo = 'Bom dia!!!'
+                return this.titulo
+            }
+        }
+
+    })
+</script>

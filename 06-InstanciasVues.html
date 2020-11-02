@@ -1,0 +1,79 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app1">
+     <!--Método para interromper o Vue--> 
+    <button @click="$destroy()">Destruir</button>
+
+    <button @click="titulo +='='">Acelerar</button>
+    {{ titulo}}
+    <button @click="alterar">Ataque Especial</button>
+  
+    
+</div>
+
+<div id="app2">
+     <!--Método para interromper o Vue--> 
+    <button @click="$destroy()">Destruir</button>
+    
+    <button @click="titulo +='='">Acelerar</button>
+    {{ titulo}}
+    <button @click="alterar">Ataque Especial</button>
+   
+</div>
+
+<div id="app3"></div>
+
+
+
+<script>
+    const vm1 = new Vue({
+        el: '#app1',
+        data: {
+            titulo: ''
+        },
+        methods: {
+            alterar() {
+                vm2.titulo = '='
+            }
+        }
+    })
+
+    const vm2 = new Vue({
+        el: '#app2',
+        data: {
+            titulo: ''
+        },
+        methods: {
+            alterar() {
+                vm1.titulo = '='
+            }
+        }
+    })
+
+    const vm3 = new Vue({
+        template: `
+        <div>
+             <button @click="alterar">Reset</button>
+             <p>três instancias, duas se referenciando uma a outra,e outra criada por template<p>
+                
+        </div>
+        `,
+        data: {
+            titulo: ''
+        },
+        methods: {
+            alterar() {
+                vm1.titulo = '='
+                vm2.titulo = '='
+            }
+        }
+
+    })
+
+    vm3.$mount('#app3') 
+
+
+
+
+</script>

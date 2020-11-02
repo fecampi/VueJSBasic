@@ -1,0 +1,56 @@
+<script src="https://unpkg.com/vue"></script>
+<style>
+    .circulo {
+        border-radius: 100%;
+    }
+</style>
+
+<div id="app">
+    <label>Largura</label>
+    <input type="text" v-model="largura">
+    <label>Altura</label>
+    <input type="text" v-model="altura">
+    <label>Cor</label>
+    <input type="text" v-model="cor">
+    <label>Circulo(true ou false)</label>
+    <input type="text" @input="setCirculo">
+    <hr>
+    <div>
+        <div :class="{circulo}" :style="myStyle"></div>
+    </div>
+
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            cor: 'red',
+            largura: 100,
+            altura: 20,
+            circulo: false,//Se relaciona a classe circulo
+
+
+        },
+        methods: {
+            setCirculo(event) {
+                if (event.target.value == "true") {
+                    this.circulo = true
+                } else if (event.target.value == "false") {
+                    this.circulo = false
+                }
+            },
+
+        },
+        computed: {
+            myStyle() {
+                return {
+                    backgroundColor: this.cor,
+                    width: this.largura + 'px',
+                    height: this.altura + 'px'
+                }
+            }
+        }
+    })
+</script>

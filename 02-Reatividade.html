@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+    <div id="app">
+
+        <!--v-model(v-bind+v-on)-->
+        <div>
+            <p>{{ titulo }}</p>
+            <input type="text" v-model="titulo">
+        </div>
+
+         <!--Método computed e watch-->
+        <div>
+            <button @click="mostrar">Mostrar</button>
+            {{ detectar }}
+            <br />
+        </div>
+
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script>
+        // Código Vue
+        new Vue({
+            el: "#app",
+            //Estado da aplicação
+            data: {
+                titulo: 'Reatividade!',
+                name: "*******"
+            },
+            //Funcionalidade do componente.
+            methods: {
+                mostrar() {
+                    this.name = "Felipe"
+
+                }
+            },
+
+
+            //Saber quando mudou o dado(this.name)
+            computed: {
+                detectar() {
+                    alert('Detectei mudança')
+                    return this.name
+                }
+            },
+            //watch Dados sempre atualizados
+            watch: {
+                detectar() {
+                    setTimeout(() => {
+                        this.name = "*******"
+                    }, 3000)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

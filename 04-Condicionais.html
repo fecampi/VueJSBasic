@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    <!--V-if(remove elemento)-->
+    <h2 v-if="ligado"> Ligado</h2>
+
+    <template v-else-if="travou">   <!--O template nunca aparece na renderização)-->
+        <h2> Ligado</h2>
+        <p>Travou, não pode ser desligado</p>
+    </template>
+
+    <h2 v-else>Desligado</h2>
+
+    <button @click="ligado = !ligado">
+        {{ ligado ? 'Desligar' : 'Ligar' }}</button>
+    <input type="checkbox" v-model="travou">
+    <hr>
+
+    <!--v-show(Exibido ou não,sem remover)-->
+    <footer v-show="ligado">
+        ....1
+    </footer>
+    <!--Negação alterna ou um ou outro-->
+    <footer v-show="!ligado">
+       ....2
+    </footer>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            nome: 'Maria',
+            ligado: false,
+            anonimo: false,
+        }
+    })
+</script>
