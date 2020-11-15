@@ -3,13 +3,15 @@
 <div id="app">
 
     <!--versão reduzida para inserir valores nos atributos-->
+    <!-- <a href="http://....">Google</a> -->
+    <!-- <a v-bind:href="link">Google</a> -->
     <a :href="link">Google</a>
 
     <!--A tag mustache vai ser trocada pelo valor da propriedade msg-->
     <p>Mensagem: {{ titulo }}</p>
     <hr>
 
-    <!--Produzir algo apenas uma vez-->
+    <!--Produzir algo apenas uma vez(não atualizar caso exista mudança)-->
     <p v-once>{{ titulo }}</p>
     <hr>
 
@@ -23,8 +25,7 @@
     <p v-html="linkHtml"></p>
     <hr>
 
-    <!-- inserir valores nos atributos do html-->
-    <a v-bind:href="link">Google</a>
+
 
 
 
@@ -44,7 +45,7 @@
             linkHtml: '<a href="http://google.com">Google</a>'
         },
         methods: {
-            saudacao: function () {
+            saudacao() {
                 this.titulo = 'Bom dia!!!'
                 return this.titulo
             }
