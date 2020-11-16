@@ -1,0 +1,83 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+
+    <div>
+        <h3>Eventos do Mouse</h3>
+        <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
+        <!--quando clicar( interceptar o evento) chama o evento soma-->
+        <!-- <button v-on:click="somar(1)">Soma 1</button> -->
+        <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
+        <button @click="somar(1)">Soma 1</button>
+
+        <!--quando passar por cima chama o evento atualizarXY-->
+        <h4>Quando passar por cima chama o evento atualizarXY-o</h4>
+        <!--iniciar o evento-->
+        <p v-on:mousemove="atualizarXY">Mouse: {{ x }} e {{ y }}
+            <!--parar o evento-->
+            <span v-on:mousemove.stop="">PARAR AQUI!!!!</span>
+
+    </div>
+
+
+    <!--Deixar de fazer o evento padrão-->
+
+    <h4>Deixar de fazer o evento padrão</h4>
+    <a v-on:click.prevent="" href="https://google.com.br">google</a>
+
+    <hr>
+
+    <h3>Teclado</h3>
+    <!--Eventos de teclado-->
+    <!--v-on:keyup-->
+
+    <h4>Quando soltar a tecla</h4>
+    <input type="text" v-on:keyup="alterarValor">
+
+    <!--v-on:keydown-->
+    <h4>Quando digitar</h4>
+    <input type="text" v-on:keydown="alterarValor">
+
+
+    <!--v-on:keydown  +tecla-->
+    <h4>com outras teclas(enter+alt)</h4>
+    <input type="text" v-on:keydown.enter.alt="alterarValor">
+    <p>{{ valor }}</p>
+
+</div>
+
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0,
+            valor: '',
+
+        },
+        // e -> passando o (evento) para a função
+        methods: {
+            somar(passo, e) {
+                console.log(passo, e)
+                this.contador += passo
+            },
+            atualizarXY(e) {
+                this.x = e.clientX
+                this.y = e.clientY
+            },
+            exibirAlerta() {
+                alert('Estou te alertando!')
+            },
+
+            alterarValor(e) {
+                this.valor = e.target.value
+            },
+
+
+        }
+    })
+</script>
