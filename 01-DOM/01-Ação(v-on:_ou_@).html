@@ -2,30 +2,29 @@
 
 <div id="app">
 
-    <div>
-        <h3>Eventos do Mouse</h3>
-        <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
-        <!--quando clicar( interceptar o evento) chama o evento soma-->
-        <!-- <button v-on:click="somar(1)">Soma 1</button> -->
-        <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
-        <button @click="somar(1)">Soma 1</button>
+    <!-- Eventos do HTML para alguma ação -->
 
-        <!--quando passar por cima chama o evento atualizarXY-->
-        <h4>Quando passar por cima chama o evento atualizarXY-o</h4>
-        <!--iniciar o evento-->
-        <p v-on:mousemove="atualizarXY">Mouse: {{ x }} e {{ y }}
-            <!--parar o evento-->
-            <span v-on:mousemove.stop="">PARAR AQUI!!!!</span>
 
-    </div>
+    <h3>Eventos do Mouse</h3>
+    <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
+    <!--quando clicar( interceptar o evento) chama o evento soma-->
+    <!-- <button v-on:click="somar(1)">Soma 1</button> -->
+    <p>{{  contador > 10 ? "chegou a 10": contador }}</p>
+    <button @click="somar(1)">Soma 1</button>
+
+    <!--quando passar por cima chama o evento atualizarXY-->
+    <h4>Quando passar por cima chama o evento atualizarXY-o</h4>
+
+    <!--iniciar o evento-->
+    <p v-on:mousemove="atualizarXY">Mouse: {{ x }} e {{ y }}
+        <!--parar o evento-->
+        <span v-on:mousemove.stop="">PARAR AQUI!!!!</span>
 
 
     <!--Deixar de fazer o evento padrão-->
-
     <h4>Deixar de fazer o evento padrão</h4>
     <a v-on:click.prevent="" href="https://google.com.br">google</a>
 
-    <hr>
 
     <h3>Teclado</h3>
     <!--Eventos de teclado-->
@@ -38,11 +37,15 @@
     <h4>Quando digitar</h4>
     <input type="text" v-on:keydown="alterarValor">
 
-
     <!--v-on:keydown  +tecla-->
     <h4>com outras teclas(enter+alt)</h4>
     <input type="text" v-on:keydown.enter.alt="alterarValor">
     <p>{{ valor }}</p>
+
+    <!--v-model(v-bind+v-on)-->
+    <h4>O bind de duas direções: v-model(v-bind+v-on)</h4>
+    <p>{{ titulo }}</p>
+    <input type="text" v-model="titulo">
 
 </div>
 
@@ -57,6 +60,7 @@
             x: 0,
             y: 0,
             valor: '',
+            titulo: 'Reatividade!',
 
         },
         // e -> passando o (evento) para a função
