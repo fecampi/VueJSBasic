@@ -177,7 +177,6 @@ data: {
    <hr>
    {{pessoa.nome}}
 
-   <!--for para atributos da pessoa-->
 	   <div v-for="(valor, chave, index) in pessoa">
 	                
 	      <template v-if="!Array.isArray(valor)">
@@ -203,7 +202,6 @@ data: {
 	elementos: [1, 2, 3],
 }
 <ul>
-	<!--Indice sempre é o segundo elemento-->
   <li v-for="(elemento, i) in elementos" :key="elemento">
 		{{ i + 1 }}) {{ elemento }}
 	</li>
