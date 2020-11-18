@@ -3,6 +3,17 @@
     .circulo {
         border-radius: 100%;
     }
+
+    .barra-progresso {
+        height: 30px;
+        width: 500px;
+        border: 1px solid #000;
+    }
+
+    .progresso {
+        background-color: red;
+        height: 100%;
+    }
 </style>
 
 <div id="app">
@@ -17,6 +28,13 @@
     <hr>
     <div>
         <div :class="{circulo}" :style="myStyle"></div>
+    </div>
+    <h2>#06</h2>
+    <div>
+        <button @click="iniciarProgresso">Iniciar</button>
+        <div class="barra-progresso">
+            <div class="progresso" :style="{width}"></div>
+        </div>
     </div>
 
 

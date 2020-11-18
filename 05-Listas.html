@@ -33,19 +33,13 @@
                 <template v-if="!Array.isArray(valor)"><!--Se não é lista só exibe-->
                     {{ chave }} = {{ valor }} 
                 </template>
+                
                 <template v-else><!--Se é lista faz outro for para notas-->
                     Notas:
                     <ul>
                       <li v-for="nota in valor">{{ nota }}</li>
-                    </ul>
-                   
+                    </ul>  
                 </template>
-
-
-
-
-
-
 
             </div>
         </li>
