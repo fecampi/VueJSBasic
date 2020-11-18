@@ -1,5 +1,46 @@
-<link rel="stylesheet" href="styles.css">
 <script src="https://unpkg.com/vue"></script>
+
+<style>
+	#efeito {
+		width: 100px;
+		height: 100px;
+		border: 1px solid black;
+	}
+
+	.destaque {
+		background-color: red;
+		width: 200px !important;
+	}
+
+	.encolher {
+		background-color: gray;
+		width: 50px !important;
+	}
+
+	.perigo {
+		background-color: red;
+	}
+
+	.quadrado {
+		width: 100px;
+		height: 100px;
+	}
+
+	.direita {
+		float: right;
+	}
+
+	.barra-progresso {
+		height: 30px;
+		width: 500px;
+		border: 1px solid #000;
+	}
+
+	.progresso {
+		background-color: red;
+		height: 100%;
+	}
+</style>
 
 <div id="desafio">
 	<!-- 1) Iniciar a execução do efeito usando botão. 
@@ -11,7 +52,7 @@
 		<button @click="iniciarEfeito">Iniciar Efeito</button>
 		<div id="efeito" :class="classe1"></div>
 	</div>
-	
+
 	<!-- 2) Crie duas classes CSS e associe a div usando a
 		sintaxe de array -->
 	<h2>#02</h2>
@@ -53,41 +94,41 @@
 	</div>
 </div>
 <script>new Vue({
-	el: '#desafio',
-	data: {
-		classe1: 'destaque',
-		perigo: true,
-		classe3: '',
-		classe4: '',
-		cor5: '',
-		estilo5: {
-			width: '100px',
-			height: '100px',
+		el: '#desafio',
+		data: {
+			classe1: 'destaque',
+			perigo: true,
+			classe3: '',
+			classe4: '',
+			cor5: '',
+			estilo5: {
+				width: '100px',
+				height: '100px',
+			},
+			width: '0',
 		},
-		width: '0',
-	},
-	methods: {
-		iniciarEfeito() {
-			setInterval(() => {
-				this.classe1 = this.classe1 == 'destaque' 
-					? 'encolher' : 'destaque'
-			}, 1000)
-		},
-		iniciarProgresso() {
-			let valor = 0
-			const temporizador = setInterval(() => {
-				valor += 5
-				this.width = `${valor}%`
-				if(valor == 100) clearInterval(temporizador)
-			}, 500)
-		},
-		setPerigo(event) {
-			if(event.target.value == "true") {
-				this.perigo = true
-			} else if(event.target.value == "false") {
-				this.perigo = false
+		methods: {
+			iniciarEfeito() {
+				setInterval(() => {
+					this.classe1 = this.classe1 == 'destaque'
+						? 'encolher' : 'destaque'
+				}, 1000)
+			},
+			iniciarProgresso() {
+				let valor = 0
+				const temporizador = setInterval(() => {
+					valor += 5
+					this.width = `${valor}%`
+					if (valor == 100) clearInterval(temporizador)
+				}, 500)
+			},
+			setPerigo(event) {
+				if (event.target.value == "true") {
+					this.perigo = true
+				} else if (event.target.value == "false") {
+					this.perigo = false
+				}
 			}
 		}
-	}
-})
+	})
 </script>
