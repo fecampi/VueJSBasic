@@ -2,24 +2,24 @@
 <script src="https://unpkg.com/vue"></script>
 
 <div id="app1">
-     <!--Método para interromper o Vue--> 
+    <!--Método para interromper o Vue-->
     <button @click="$destroy()">Destruir</button>
 
     <button @click="titulo +='='">Acelerar</button>
     {{ titulo}}
     <button @click="alterar">Ataque Especial</button>
-  
-    
+
+
 </div>
 
 <div id="app2">
-     <!--Método para interromper o Vue--> 
+    <!--Método para interromper o Vue-->
     <button @click="$destroy()">Destruir</button>
-    
+
     <button @click="titulo +='='">Acelerar</button>
     {{ titulo}}
     <button @click="alterar">Ataque Especial</button>
-   
+
 </div>
 
 <div id="app3"></div>
@@ -55,23 +55,49 @@
         template: `
         <div>
              <button @click="alterar">Reset</button>
-             <p>três instâncias, duas se referenciando uma a outra,e outra criada por template<p>
+             <p>três instâncias, duas se referenciando uma a outra,e outra criada por template</p>
                 
         </div>
         `,
         data: {
             titulo: ''
         },
+        beforeCreate() {
+            console.log('Antes de Criar')
+        },
+        created() {
+            console.log('Criado')
+        },
+        beforeMount() {
+            console.log('Antes de Montar (DOM)')
+        },
+        mounted() {
+            console.log('DOM Montada')
+        },
+        beforeUpdate() {
+            console.log('Antes de Atualizar')
+        },
+        updated() {
+            console.log('Atualizado')
+        },
+        beforeDestroy() {
+            console.log('Antes de destruir')
+        },
+        destroyed() {
+            console.log('Destruído')
+        },
+        
         methods: {
             alterar() {
                 vm1.titulo = '='
                 vm2.titulo = '='
             }
+
         }
 
     })
 
-    vm3.$mount('#app3') 
+    vm3.$mount('#app3')
 
 
 
