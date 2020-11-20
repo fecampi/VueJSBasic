@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
+import Contadores from './Contadores.vue'
+
+
+
+
 Vue.config.productionTip = false
 
-//(Registra globalmente o componente)
-import Contadores from './Contadores.vue'
+//Registrar Globalmente os componentes
 Vue.component('app-contadores', Contadores) 
 
 

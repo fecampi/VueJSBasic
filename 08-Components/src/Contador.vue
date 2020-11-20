@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-//scoped - Estilo é aplicado só dentro do componente
+
 <style scoped>
 span {
   border-bottom: 1px solid #ccc;
@@ -32,8 +32,6 @@ span {
   padding: 5px 25px;
 }
 
-/*nome do button com seu estilo especifico na dom*/
-/*button[data-v-6cbbf471]*/
 button{
   height: 30px;
   width: 30px;
