@@ -33,6 +33,7 @@ export default {
   props: {
     nome: {
       type: String,
+      required: true
     },
     empresa: {
       type: String,
