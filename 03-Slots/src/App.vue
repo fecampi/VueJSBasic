@@ -3,27 +3,27 @@
         <span>
             <button @click="numero++">Troca</button>
         </span>
-        <Citacao>
+        <Produto>
             <!--Slots nomeado-->
-            <h1 slot="produto">{{ citacoes[indice].produto }}</h1>
+            <h1 slot="produto">{{ produto[indice].produto }}</h1>
             <h1 slot="produto">-||--|--||-</h1>
              <!--Slots Padrão-->
-            <p>{{ citacoes[indice].texto }}</p>
+            <p>{{ produto[indice].texto }}</p>
               <!--Slots nomeado-->
-            <h6 slot="preco">R$: {{ citacoes[indice].preco }}</h6>
-        </Citacao>
+            <h6 slot="preco">R$: {{ produto[indice].preco }}</h6>
+        </Produto>
     </div>
 </template>
 
 <script>
-import Citacao from './Citacao.vue'
+import Produto from './components/Produto'
 
 export default {
-    components: { Citacao },
+    components: { Produto },
     data() {
         return {
             numero: 0,
-            citacoes: [{
+            produto: [{
                 preco: '5,00',
                 texto: 'O Pão de Forma Integral Visconti é saboroso, macio e saudável. Fonte de fibras e 0% gordura trans, é produzido com ingredientes selecionados e qualidade Visconti. Perfeito no café da manhã, no lanche da tarde, ou ainda nos mais variados e criativos lanches saudáveis.',
                 produto: 'Pão de Forma'
