@@ -2,7 +2,8 @@
   <div id="app">
     <h1>Diretivas</h1>
 
-    <p v-text="'Usando diretiva'"></p>
+    <p v-text="'Usando..diretiva'"></p>
+    
     <p v-html="'Usando diretiva <strong>v-html</strong>'"></p>
     <!-- cuidado, pode ter falha de segurança -->
 
