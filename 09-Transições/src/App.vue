@@ -5,17 +5,15 @@
 		<b-button variant="primary" class="mb-4"
 			@click="exibir = !exibir">Mostrar Mensagem</b-button>
 		
+		<FadeCssTransition>
+			<b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
+		</FadeCssTransition>
 
-
-		<FadeCssTransition2s>
-		<b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
-		</FadeCssTransition2s>
-
-		<!-- <transition name="slide" type="animation" appear>
+		<SlideYCssTransition>
 			<b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
-		</transition>
+		</SlideYCssTransition>
 
-		<transition 
+		<!--<transition 
 			enter-active-class="animated bounce"
 			leave-active-class="animated shake">
 			<b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
@@ -70,12 +68,13 @@
 </template>
 
 <script>
-import FadeCssTransition2s from './transitions/FadeCssTransition2s'
 import AlertaAdvertencia from './AlertaAdvertencia.vue'
 import AlertaInfo from './AlertaInfo.vue'
+import FadeCssTransition from './transitions/FadeCssTransition'
+import SlideYCssTransition from './transitions/SlideYCssTransition'
 
 export default {
-	components: { AlertaAdvertencia, AlertaInfo, FadeCssTransition2s },
+	components: { AlertaAdvertencia, AlertaInfo, FadeCssTransition, SlideYCssTransition },
 	data() {
 		return {
 			alunos: ['Roberto', 'Julia', 'Teresa', 'Paulo'],
@@ -156,41 +155,6 @@ export default {
 	background-color: lightgreen;
 }
 
-.fade-enter, .fade-leave-to {
-	opacity: 0;
-}
 
-.fade-enter-active, .fade-leave-active {
-	transition: opacity 2s;
-}
 
-@keyframes slide-in {
-	from { transform: translateY(40px); }
-	to { transform: translateY(0); }
-}
-
-@keyframes slide-out {
-	from { transform: translateY(0); }
-	to { transform: translateY(40px); }
-}
-
-.slide-enter-active {
-	animation: slide-in 2s ease;
-	transition: opacity 2s;
-}
-
-.slide-leave-active {
-	position: absolute;
-	width: 100%;
-	animation: slide-out 2s ease;
-	transition: opacity 2s;
-}
-
-.slide-enter, .slide-leave-to {
-	opacity: 0;
-}
-
-.slide-move {
-	transition: transform 1s;
-}
 </style>
