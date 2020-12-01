@@ -6,7 +6,7 @@
       >Mostrar Mensagem</b-button
     >
 
-    <FadeCssTransition>
+    <!-- <FadeCssTransition>
       <b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
     </FadeCssTransition>
 
@@ -16,24 +16,13 @@
 
     <SlideYCssTransition>
       <b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
-    </SlideYCssTransition>
+    </SlideYCssTransition> -->
 
-    <!--<transition 
-			enter-active-class="animated bounce"
-			leave-active-class="animated shake">
-			<b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
-		</transition> -->
+    <SwitchTransition :show="exibir">
+      <b-alert variant="info">Olá</b-alert>
+    </SwitchTransition>
 
-    <!-- <hr>
-		<b-select v-model="tipoAnimacao" class="mb-4">
-			<option value="fade">Fade</option>
-			<option value="slide">Slide</option>
-		</b-select>
-
-		<transition :name="tipoAnimacao" mode="out-in">
-			<b-alert variant="info" show v-if="exibir" key="info">{{ msg }}</b-alert>
-			<b-alert variant="warning" show v-else key="warn">{{ msg }}</b-alert>
-		</transition>
+    <!-- 
 		
 		<hr>
 		<button @click="exibir2 = !exibir2">Alternar</button>
@@ -80,13 +69,17 @@ import AlertaInfo from "./AlertaInfo.vue";
 import FadeCssTransition from "./transitions/FadeCssTransition";
 import SlideYCssTransition from "./transitions/SlideYCssTransition";
 import SlideXCssTransition from "./transitions/SlideXCssTransition";
+import Vue2Transitions from "./transitions/Vue2Transitions";
+import SwitchTransition from "./transitions/SwitchTransition";
 export default {
   components: {
+    Vue2Transitions,
     AlertaAdvertencia,
     AlertaInfo,
     FadeCssTransition,
-	SlideYCssTransition,
-	SlideXCssTransition,
+    SlideYCssTransition,
+    SlideXCssTransition,
+    SwitchTransition,
   },
   data() {
     return {
@@ -100,6 +93,9 @@ export default {
     };
   },
   methods: {
+    mounted() {
+      this.exibir = true;
+    },
     adicionarAluno() {
       const s = Math.random().toString(36).substring(2);
       this.alunos.push(s);
