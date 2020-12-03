@@ -15,12 +15,12 @@
     </SlideXCssTransition>
 
     <SlideYCssTransition>
-      <b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
+    
     </SlideYCssTransition> -->
 
-    <SwitchTransition :show="exibir">
-      <b-alert variant="info">Olá</b-alert>
-    </SwitchTransition>
+    <SwitchTransition :show="exibir" />
+
+    <JavaScriptTransition> </JavaScriptTransition>
 
     <!-- 
 		
@@ -71,6 +71,7 @@ import SlideYCssTransition from "./transitions/SlideYCssTransition";
 import SlideXCssTransition from "./transitions/SlideXCssTransition";
 import Vue2Transitions from "./transitions/Vue2Transitions";
 import SwitchTransition from "./transitions/SwitchTransition";
+import JavaScriptTransition from "./transitions/JavaScriptTransition";
 export default {
   components: {
     Vue2Transitions,
@@ -80,6 +81,7 @@ export default {
     SlideYCssTransition,
     SlideXCssTransition,
     SwitchTransition,
+    JavaScriptTransition,
   },
   data() {
     return {
@@ -155,12 +157,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   font-size: 1.5rem;
-}
-
-.caixa {
-  height: 100px;
-  width: 300px;
-  margin: 30px auto;
-  background-color: lightgreen;
 }
 </style>

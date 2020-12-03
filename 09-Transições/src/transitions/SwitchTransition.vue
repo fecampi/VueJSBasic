@@ -1,10 +1,8 @@
 <template>
   <div>
-    <transition name="fade" appear>
-      <div show v-show="show">
-        <slot/>
-        </div>
-      
+    <transition name="fade" mode="out-in">
+      <b-alert variant="info" show v-if="show" key="A">Opção A</b-alert>
+      <b-alert variant="danger" show v-else key="B">Opção B</b-alert>
     </transition>
   </div>
 </template>
