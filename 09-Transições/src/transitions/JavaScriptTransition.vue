@@ -1,43 +1,30 @@
 <template>
   <div>
+    <hr />
+    <button @click="exibir2 = !exibir2">Alternar</button>
     <transition
       :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
-      @after-enter="afterEnter"
-      @enter-cancelled="enterCancelled"
       @before-leave="beforeLeave"
       @leave="leave"
-      @after-leave="afterLeave"
-      @leave-cancelled="leaveCancelled"
     >
       <div v-if="exibir2" class="caixa"></div>
     </transition>
   </div>
 </template>
-<script>
 
- data() {
+<script>
+export default {
+  data() {
     return {
-      alunos: ["Roberto", "Julia", "Teresa", "Paulo"],
-      msg: "Uma mensagem de informação para o usuário!",
-      exibir: false,
       exibir2: true,
-      tipoAnimacao: "fade",
       larguraBase: 0,
-      componenteSelecionado: "AlertaInfo",
     };
   },
   methods: {
     mounted() {
       this.exibir = true;
-    },
-    adicionarAluno() {
-      const s = Math.random().toString(36).substring(2);
-      this.alunos.push(s);
-    },
-    removerAluno(indice) {
-      this.alunos.splice(indice, 1);
     },
     animar(el, done, negativo) {
       let rodada = 1;
@@ -52,32 +39,30 @@
         }
       }, 20);
     },
+
+    //Os 4 Metodos de ciclo de vida
+
+    //Antes de entrar
     beforeEnter(el) {
       this.larguraBase = 0;
       el.style.width = `${this.larguraBase}px`;
     },
+
+    //Entrar
     enter(el, done) {
       this.animar(el, done, false);
     },
-    // afterEnter(el) {
-    // 	console.log('afterEnter')
-    // },
-    // enterCancelled() {
-    // 	console.log('enterCancelled')
-    // },
+
+    //Antes de sair
     beforeLeave(el) {
       this.larguraBase = 300;
       el.style.width = `${this.larguraBase}px`;
     },
+
+    //Sair
     leave(el, done) {
       this.animar(el, done, true);
     },
-    // afterLeave(el) {
-    // 	console.log('afterLeave')
-    // },
-    // leaveCancelled() {
-    // 	console.log('enterCancelled')
-    // },
   },
 };
 </script>

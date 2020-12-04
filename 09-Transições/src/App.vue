@@ -16,29 +16,15 @@
 
     <SlideYCssTransition>
     
-    </SlideYCssTransition> -->
+    </SlideYCssTransition> 
 
-    <SwitchTransition :show="exibir" />
+    <SwitchTransition :show="exibir" /> -->
 
     <JavaScriptTransition> </JavaScriptTransition>
 
     <!-- 
 		
-		<hr>
-		<button @click="exibir2 = !exibir2">Alternar</button>
-		<transition
-			:css="false"
-			@before-enter="beforeEnter"
-			@enter="enter"
-			@after-enter="afterEnter"
-			@enter-cancelled="enterCancelled"
-			
-			@before-leave="beforeLeave"
-			@leave="leave"
-			@after-leave="afterLeave"
-			@leave-cancelled="leaveCancelled">
-			<div v-if="exibir2" class="caixa"></div>
-		</transition>
+
 
 		<hr>
 		<div class="mb-4">
@@ -88,9 +74,6 @@ export default {
       alunos: ["Roberto", "Julia", "Teresa", "Paulo"],
       msg: "Uma mensagem de informação para o usuário!",
       exibir: false,
-      exibir2: true,
-      tipoAnimacao: "fade",
-      larguraBase: 0,
       componenteSelecionado: "AlertaInfo",
     };
   },
