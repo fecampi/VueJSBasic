@@ -6,7 +6,7 @@
       >Mostrar Mensagem</b-button
     >
 
-    <!-- <FadeCssTransition>
+  <FadeCssTransition>
       <b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
     </FadeCssTransition>
 
@@ -18,24 +18,11 @@
     
     </SlideYCssTransition> 
 
-    <SwitchTransition :show="exibir" /> -->
+    <SwitchTransition :show="exibir" /> 
 
     <JavaScriptTransition> </JavaScriptTransition>
+    <DynamicComponentTransition></DynamicComponentTransition>  
 
-    <!-- 
-		
-
-
-		<hr>
-		<div class="mb-4">
-			<b-button variant="primary" class="mr-2"
-				@click="componenteSelecionado = 'AlertaInfo'">Info</b-button>
-			<b-button variant="secondary"
-				@click="componenteSelecionado = 'AlertaAdvertencia'">Advertência</b-button>
-		</div>
-		<transition name="fade" mode="out-in">
-			<component :is="componenteSelecionado"></component>
-		</transition> -->
 
     <hr />
     <b-button @click="adicionarAluno" class="mb-4">Adicionar Aluno</b-button>
@@ -50,24 +37,22 @@
 </template>
 
 <script>
-import AlertaAdvertencia from "./AlertaAdvertencia.vue";
-import AlertaInfo from "./AlertaInfo.vue";
 import FadeCssTransition from "./transitions/FadeCssTransition";
 import SlideYCssTransition from "./transitions/SlideYCssTransition";
 import SlideXCssTransition from "./transitions/SlideXCssTransition";
 import Vue2Transitions from "./transitions/Vue2Transitions";
 import SwitchTransition from "./transitions/SwitchTransition";
 import JavaScriptTransition from "./transitions/JavaScriptTransition";
+import DynamicComponentTransition from "./transitions/DynamicComponentTransition";
 export default {
   components: {
     Vue2Transitions,
-    AlertaAdvertencia,
-    AlertaInfo,
     FadeCssTransition,
     SlideYCssTransition,
     SlideXCssTransition,
     SwitchTransition,
     JavaScriptTransition,
+    DynamicComponentTransition,
   },
   data() {
     return {
