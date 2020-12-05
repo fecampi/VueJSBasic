@@ -24,7 +24,7 @@
 
 <script>
 import AlertaAdvertencia from "../components/AlertaAdvertencia";
-import AlertaInfo from "../components//AlertaInfo.vue";
+import AlertaInfo from "../components/AlertaInfo";
 
 export default {
    components: {
@@ -41,5 +41,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
 </style>

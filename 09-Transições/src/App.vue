@@ -6,7 +6,7 @@
       >Mostrar Mensagem</b-button
     >
 
-  <FadeCssTransition>
+    <FadeCssTransition>
       <b-alert variant="info" show v-if="exibir">{{ msg }}</b-alert>
     </FadeCssTransition>
 
@@ -14,25 +14,18 @@
       <b-alert variant="info" show v-show="exibir">{{ msg }}</b-alert>
     </SlideXCssTransition>
 
-    <SlideYCssTransition>
-    
-    </SlideYCssTransition> 
+    <SlideYCssTransition />
 
-    <SwitchTransition :show="exibir" /> 
+    <Vue2Transitions />
 
-    <JavaScriptTransition> </JavaScriptTransition>
-    <DynamicComponentTransition></DynamicComponentTransition>  
+    <SwitchTransition :show="exibir" />
+
+    <JavaScriptTransition/> 
+
+    <DynamicComponentTransition/>
+    <GroupTransition/>
 
 
-    <hr />
-    <b-button @click="adicionarAluno" class="mb-4">Adicionar Aluno</b-button>
-    <transition-group name="slide" tag="div">
-      <b-list-group v-for="(aluno, i) in alunos" :key="aluno">
-        <b-list-group-item @click="removerAluno(i)">{{
-          aluno
-        }}</b-list-group-item>
-      </b-list-group>
-    </transition-group>
   </div>
 </template>
 
@@ -44,8 +37,11 @@ import Vue2Transitions from "./transitions/Vue2Transitions";
 import SwitchTransition from "./transitions/SwitchTransition";
 import JavaScriptTransition from "./transitions/JavaScriptTransition";
 import DynamicComponentTransition from "./transitions/DynamicComponentTransition";
+import GroupTransition from "./transitions/GroupTransition"
+
 export default {
   components: {
+    GroupTransition,
     Vue2Transitions,
     FadeCssTransition,
     SlideYCssTransition,
@@ -56,63 +52,11 @@ export default {
   },
   data() {
     return {
-      alunos: ["Roberto", "Julia", "Teresa", "Paulo"],
       msg: "Uma mensagem de informação para o usuário!",
       exibir: false,
-      componenteSelecionado: "AlertaInfo",
     };
   },
-  methods: {
-    mounted() {
-      this.exibir = true;
-    },
-    adicionarAluno() {
-      const s = Math.random().toString(36).substring(2);
-      this.alunos.push(s);
-    },
-    removerAluno(indice) {
-      this.alunos.splice(indice, 1);
-    },
-    animar(el, done, negativo) {
-      let rodada = 1;
-      const temporizador = setInterval(() => {
-        const novaLargura =
-          this.larguraBase + (negativo ? -rodada * 10 : rodada * 10);
-        el.style.width = `${novaLargura}px`;
-        rodada++;
-        if (rodada > 30) {
-          clearInterval(temporizador);
-          done();
-        }
-      }, 20);
-    },
-    beforeEnter(el) {
-      this.larguraBase = 0;
-      el.style.width = `${this.larguraBase}px`;
-    },
-    enter(el, done) {
-      this.animar(el, done, false);
-    },
-    // afterEnter(el) {
-    // 	console.log('afterEnter')
-    // },
-    // enterCancelled() {
-    // 	console.log('enterCancelled')
-    // },
-    beforeLeave(el) {
-      this.larguraBase = 300;
-      el.style.width = `${this.larguraBase}px`;
-    },
-    leave(el, done) {
-      this.animar(el, done, true);
-    },
-    // afterLeave(el) {
-    // 	console.log('afterLeave')
-    // },
-    // leaveCancelled() {
-    // 	console.log('enterCancelled')
-    // },
-  },
+
 };
 </script>
 
