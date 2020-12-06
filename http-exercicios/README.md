@@ -1,4 +1,4 @@
-# super-quiz
+# http-exercicios
 
 ## Project setup
 ```

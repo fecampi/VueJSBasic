@@ -1,5 +1,9 @@
+import '@babel/polyfill'
 import Vue from 'vue'
 import App from './App.vue'
+
+import './plugins/bootstrap-vue'
+import './services/axios'
 
 Vue.config.productionTip = false
 
