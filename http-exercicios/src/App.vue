@@ -1,6 +1,14 @@
 <template>
   <div id="app" class="container">
     <h1>HTTP com Axios</h1>
+    <b-alert
+      show
+      dismissible
+      v-for="mensagem in mensagens"
+      :key="mensagem.texto"
+      :variant="mensagem.tipo"
+      >{{ mensagem.texto }}</b-alert
+    >
     <b-card>
       <b-form-group label="Nome:">
         <b-form-input
@@ -25,7 +33,7 @@
     <br />
     <b-list-group>
       <b-list-group-item v-for="(user, index) in users" :key="user.id">
-        {{ (user.index = index) }}<br/>
+        {{ (user.index = index) }}<br />
         <strong>Nome: </strong> {{ user.name }}<br />
         <strong>E-mail: </strong> {{ user.email }}<br />
         <strong>ID: </strong> {{ user.id }}<br />
@@ -49,6 +57,7 @@
 export default {
   data() {
     return {
+      mensagens: [],
       users: [],
       user: {
         name: "",
@@ -69,6 +78,7 @@ export default {
       this.user.name = "";
       this.user.email = "";
       this.user.id = null;
+      this.mensagens = [];
     },
 
     loadFields(user) {
@@ -81,9 +91,17 @@ export default {
         .then(() => {
           this.users.splice(index, 1);
           this.clearFields();
+          this.mensagens.push({
+            texto: "Operação realizada com sucesso!",
+            tipo: "success",
+          });
         })
         .catch(() => {
           this.clearFields();
+          this.mensagens.push({
+            texto: "Problema para excluir!",
+            tipo: "danger",
+          });
         });
     },
 
@@ -92,23 +110,36 @@ export default {
       let method = "post";
       let finalUrl = ".json";
 
-      //Se já existe usuario
+      //Se usuario existe  então é para trocar
       if (this.user.id) {
         method = "patch";
         finalUrl = `/${this.user.id}.json`;
       }
-      this.$http[method](`/users${finalUrl}`, this.user).then((response) => {
-        //Apaga da lista que modificou
-        this.users.splice(index, 1);
-        //Pega do response o id
-        if (!this.user.id) {
-          this.user.id = Object.values(response.data[0]).slice(0, -1).join("");
-        }
-        //Adiciona na lista do usuario
-        this.users.push({ ...this.user });
-        //Limpa campos
-        this.clearFields();
-      });
+      this.$http[method](`/users${finalUrl}`, this.user)
+        .then((response) => {
+          //Apaga da lista que modificou
+          this.users.splice(index, 1);
+          //Pega do response o id
+          if (!this.user.id) {
+            this.user.id = Object.values(response.data[0])
+              .slice(0, -1)
+              .join("");
+          }
+          //Adiciona na lista do usuario
+          this.users.push({ ...this.user });
+          //Limpa campos
+          this.clearFields();
+          this.mensagens.push({
+            texto: "Operação realizada com sucesso!",
+            tipo: "success",
+          });
+        })
+        .catch((error) => {
+          this.mensagens.push({
+            texto: `Problema: ${error}`,
+            tipo: "danger",
+          });
+        });
     },
   },
 };
