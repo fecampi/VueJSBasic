@@ -18,22 +18,26 @@
           placeholder="Informe o E-mail"
         ></b-form-input>
       </b-form-group>
-      <b-button @click="salvar" size="lg" variant="primary">Salvar</b-button>
+      <b-button @click="save(user.index)" size="lg" variant="primary"
+        >Salvar</b-button
+      >
     </b-card>
     <br />
     <b-list-group>
-      <b-list-group-item v-for="user in users" :key="user.id">
+      <b-list-group-item v-for="(user, index) in users" :key="user.id">
+        {{ (user.index = index) }}<br/>
         <strong>Nome: </strong> {{ user.name }}<br />
         <strong>E-mail: </strong> {{ user.email }}<br />
         <strong>ID: </strong> {{ user.id }}<br />
-        <b-button variant="warning" size="lg" @click="carregar(user.id)"
-          >Carregar</b-button
+
+        <b-button variant="warning" size="lg" @click="loadFields(user)"
+          >Editar</b-button
         >
         <b-button
           variant="danger"
           size="lg"
           class="ml-2"
-          @click="excluir(user.id)"
+          @click="deleteUser(index, user.id)"
           >Excluir</b-button
         >
       </b-list-group-item>
@@ -50,6 +54,7 @@ export default {
         name: "",
         email: "",
         id: null,
+        index: null,
       },
     };
   },
@@ -60,29 +65,49 @@ export default {
     });
   },
   methods: {
-    
-    carregar(id) {
-      this.id = id;
-      this.usuario = { ...this.usuarios[id] };
+    clearFields() {
+      this.user.name = "";
+      this.user.email = "";
+      this.user.id = null;
     },
 
-    excluir(id) {
+    loadFields(user) {
+      this.user = { ...user };
+    },
+
+    deleteUser(index, id) {
       this.$http
-        .delete(`/usuarios/${id}`)
-        .then(() => this.limpar())
-        .catch((err) => {
-          this.limpar();
-          this.mensagens.push({
-            texto: "Problema para excluir!",
-            tipo: "danger",
-          });
+        .delete(`/users/${id}.json`)
+        .then(() => {
+          this.users.splice(index, 1);
+          this.clearFields();
+        })
+        .catch(() => {
+          this.clearFields();
         });
     },
 
-    salvar() {
-      this.$http.post("users.json", this.user).then(() => {
-        this.user.name = " ";
-        this.user.email = " ";
+    save(index) {
+      //Se for novo
+      let method = "post";
+      let finalUrl = ".json";
+
+      //Se já existe usuario
+      if (this.user.id) {
+        method = "patch";
+        finalUrl = `/${this.user.id}.json`;
+      }
+      this.$http[method](`/users${finalUrl}`, this.user).then((response) => {
+        //Apaga da lista que modificou
+        this.users.splice(index, 1);
+        //Pega do response o id
+        if (!this.user.id) {
+          this.user.id = Object.values(response.data[0]).slice(0, -1).join("");
+        }
+        //Adiciona na lista do usuario
+        this.users.push({ ...this.user });
+        //Limpa campos
+        this.clearFields();
       });
     },
   },

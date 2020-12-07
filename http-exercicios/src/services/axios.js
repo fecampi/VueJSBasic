@@ -7,9 +7,9 @@ Vue.use({
     install(Vue) {
         Vue.prototype.$http = axios.create({
             baseURL: 'https://heroic-gamma-143021-default-rtdb.firebaseio.com/',
-            headers: {
-                "Authorization": "abc123"
-            }
+            // headers: {
+            //     "Authorization": "abc123"
+            // }
 
         })
 
