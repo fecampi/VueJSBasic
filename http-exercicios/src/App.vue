@@ -6,7 +6,7 @@
         <b-form-input
           type="text"
           size="lg"
-          v-model="usuario.nome"
+          v-model="user.name"
           placeholder="Informe o Nome"
         ></b-form-input>
       </b-form-group>
@@ -14,25 +14,30 @@
         <b-form-input
           type="email"
           size="lg"
-          v-model="usuario.email"
+          v-model="user.email"
           placeholder="Informe o E-mail"
         ></b-form-input>
       </b-form-group>
-      <hr />
       <b-button @click="salvar" size="lg" variant="primary">Salvar</b-button>
-      <b-button @click="obterUsuarios" size="lg" variant="success" class="ml-2"
-        >Obter Usuários</b-button
-      >
     </b-card>
-		<hr>
-		<b-list-group>
-			<b-list-group-item v-for="(usuario, id) in usuarios" :key="id">
-				<strong>Nome: </strong> {{ usuario.nome }}<br>
-				<strong>E-mail: </strong> {{ usuario.email }}<br>
-				<strong>ID: </strong> {{ id }}<br>
-				
-			</b-list-group-item>
-		</b-list-group>
+    <br />
+    <b-list-group>
+      <b-list-group-item v-for="user in users" :key="user.id">
+        <strong>Nome: </strong> {{ user.name }}<br />
+        <strong>E-mail: </strong> {{ user.email }}<br />
+        <strong>ID: </strong> {{ user.id }}<br />
+        <b-button variant="warning" size="lg" @click="carregar(user.id)"
+          >Carregar</b-button
+        >
+        <b-button
+          variant="danger"
+          size="lg"
+          class="ml-2"
+          @click="excluir(user.id)"
+          >Excluir</b-button
+        >
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -40,24 +45,44 @@
 export default {
   data() {
     return {
-      usuarios: [],
-      usuario: {
-        nome: "",
+      users: [],
+      user: {
+        name: "",
         email: "",
+        id: null,
       },
     };
   },
+  //Ao criar carrega a lista de users
+  created() {
+    this.$http.get("users.json").then((res) => {
+      this.users = res.data;
+    });
+  },
   methods: {
-    salvar() {
-      this.$http.post("usuarios.json", this.usuario).then((response) => {
-        this.usuario.nome = " ";
-        this.usuario.email = " ";
-      });
+    
+    carregar(id) {
+      this.id = id;
+      this.usuario = { ...this.usuarios[id] };
     },
-    obterUsuarios() {
-      this.$http.get("usuarios.json").then((res) => {
-        this.usuarios = res.data;
-        console.log(res.data);
+
+    excluir(id) {
+      this.$http
+        .delete(`/usuarios/${id}`)
+        .then(() => this.limpar())
+        .catch((err) => {
+          this.limpar();
+          this.mensagens.push({
+            texto: "Problema para excluir!",
+            tipo: "danger",
+          });
+        });
+    },
+
+    salvar() {
+      this.$http.post("users.json", this.user).then(() => {
+        this.user.name = " ";
+        this.user.email = " ";
       });
     },
   },
