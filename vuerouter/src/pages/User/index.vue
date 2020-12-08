@@ -1,6 +1,5 @@
 <template>
     <div class="usuario">
-        <Menu/>
         <h2>Usuários</h2>
         <router-view />
    
@@ -8,9 +7,9 @@
 </template>
 
 <script>
-import Menu from "../../shared/components/template/Menu"
+
 export default {
-  components: {Menu},
+
 }
 </script>
 
