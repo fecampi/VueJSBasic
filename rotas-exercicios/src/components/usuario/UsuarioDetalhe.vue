@@ -24,11 +24,13 @@ export default {
         const autenticado = true
         autenticado ? next() : next(false)
     }
+    //Metodo de identifificar o id (falho)
     // data() {
     //     return {
     //         id: this.$route.params.id
     //     }
     // },
+    //Metodo de identifificar o id com o watch
     // watch: {
     //     $route(to, from) {
     //         this.id = to.params.id

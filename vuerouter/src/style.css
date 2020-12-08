@@ -10,5 +10,18 @@ body {
 h1, h2, h3 {
     margin: 10px 0px;
     font-weight: 300;
-    color:white;
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+[sucesso] {
+    color: #FFF;
+    background-color: #47af55;
+}
+
+[sucesso]:hover {
+    background-color: #47af55aa;
 }
