@@ -4,10 +4,10 @@
     <b-alert
       show
       dismissible
-      v-for="mensagem in mensagens"
-      :key="mensagem.texto"
-      :variant="mensagem.tipo"
-      >{{ mensagem.texto }}</b-alert
+      v-for="msg in msgs"
+      :key="msg.text"
+      :variant="msg.type"
+      >{{ msg.text }}</b-alert
     >
     <b-card>
       <b-form-group label="Nome:">
@@ -57,7 +57,7 @@
 export default {
   data() {
     return {
-      mensagens: [],
+      msgs: [],
       users: [],
       user: {
         name: "",
@@ -78,7 +78,7 @@ export default {
       this.user.name = "";
       this.user.email = "";
       this.user.id = null;
-      this.mensagens = [];
+      this.msgs = [];
     },
 
     loadFields(user) {
@@ -91,16 +91,16 @@ export default {
         .then(() => {
           this.users.splice(index, 1);
           this.clearFields();
-          this.mensagens.push({
-            texto: "Operação realizada com sucesso!",
-            tipo: "success",
+          this.msgs.push({
+            text: "Operação realizada com sucesso!",
+            type: "success",
           });
         })
         .catch(() => {
           this.clearFields();
-          this.mensagens.push({
-            texto: "Problema para excluir!",
-            tipo: "danger",
+          this.msgs.push({
+            text: "Problema para excluir!",
+            type: "danger",
           });
         });
     },
@@ -117,27 +117,29 @@ export default {
       }
       this.$http[method](`/users${finalUrl}`, this.user)
         .then((response) => {
-          //Apaga da lista que modificou
-          this.users.splice(index, 1);
-          //Pega do response o id
-          if (!this.user.id) {
+          if (this.user.id) {
+            //Apaga da lista que modificou
+            this.users.splice(index, 1);
+          } else {
+            //Pega do response o id
             this.user.id = Object.values(response.data[0])
               .slice(0, -1)
               .join("");
           }
+
           //Adiciona na lista do usuario
           this.users.push({ ...this.user });
           //Limpa campos
           this.clearFields();
-          this.mensagens.push({
-            texto: "Operação realizada com sucesso!",
-            tipo: "success",
+          this.msgs.push({
+            text: "Operação realizada com sucesso!",
+            type: "success",
           });
         })
         .catch((error) => {
-          this.mensagens.push({
-            texto: `Problema: ${error}`,
-            tipo: "danger",
+          this.msgs.push({
+            text: `Problema: ${error}`,
+            type: "danger",
           });
         });
     },
