@@ -14,8 +14,8 @@ export default {
   methods: {
     irParaInicio() {
       // this.$router.push('/')
-      this.$router.push({ path: this.to })
-    //   this.$router.push({ name: "inicio" });
+      // this.$router.push({ path: this.to })
+      this.$router.push({ name: "Index" });
     },
   },
 };
