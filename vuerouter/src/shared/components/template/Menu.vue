@@ -1,18 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container-fluid">
-      <div >
+  <nav class="navbar-block navbar-expand navbar-dark bg-dark sticky-top">
+    <div class="container-fluid ">
+      <div>
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link to="/" tag="li" exact>
-              <a class="nav-link" active-class="nav-link active" >Início</a>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/user/10" tag="li" >
-              <a class="nav-link" active-class="nav-link active">Usuário</a>
-            </router-link>
-          </li>
+          <!-- tag="li" -> a tag router passa a ser li -->
+          <router-link tag="li" class="nav-item" to="/" exact>
+            <a class="nav-link" active-class="nav-link active">Início</a>
+          </router-link>
+
+          <router-link tag="li" class="nav-item" to="/user">
+            <a class="nav-link" active-class="nav-link active">Usuários</a>
+          </router-link>
         </ul>
       </div>
     </div>
