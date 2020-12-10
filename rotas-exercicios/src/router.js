@@ -43,11 +43,11 @@ const router = new Router({
         children: [
             { path: '', component: UsuarioLista },
             { path: ':id', component: UsuarioDetalhe, props: true,
-                beforeEnter: (to, from, next) => {
-                    console.log('antes da rota -> usuário detalhe')
-                    next()
+               
                 } },
-            { path: ':id/editar', component: UsuarioEditar, props: true,
+            { pa beforeEnter: (to, from, next) => {
+                    console.log('antes da rota -> usuário detalhe')
+                    next()th: ':id/editar', component: UsuarioEditar, props: true,
                 name: 'editarUsuario' },
         ]
     }, {

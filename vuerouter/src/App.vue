@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Menu />
-       <fade-transition :duration="300">
-    <router-view />
-        </fade-transition>
+    <fade-transition :duration="300">
+      <router-view />
+    </fade-transition>
     <router-view name="footer" id="rodape"></router-view>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   name: "App",
   components: {
     Menu,
-    FadeTransition
+    FadeTransition,
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <div class="usuario">
         
     <router-view />
-<Go to="Home"> Voltar </Go>
+<Go to="Home"> Home </Go>
   </div>
 </template>
 

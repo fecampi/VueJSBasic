@@ -20,7 +20,10 @@
       :to="{
         name: 'EditUser',
         params: { id },
-        query: { completo: false, language },
+        query: {
+          authenticated: false,
+          language,
+        },
         hash: '#rodape',
       }"
     >
