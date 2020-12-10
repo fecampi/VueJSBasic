@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <Menu/>
-    <router-view/>
+    <Menu />
+       <fade-transition :duration="300">
+    <router-view />
+        </fade-transition>
+    <router-view name="footer" id="rodape"></router-view>
   </div>
 </template>
 
 <script>
-import Menu from './shared/components/template/Menu'
+import { FadeTransition } from "vue2-transitions";
+import Menu from "./shared/components/template/Menu";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Menu
-  }
-}
+    Menu,
+    FadeTransition
+  },
+};
 </script>
 
 <style>

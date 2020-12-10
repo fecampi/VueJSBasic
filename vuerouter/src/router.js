@@ -5,19 +5,40 @@ import Index from './pages/Index'
 import User from './pages/User'
 
 
+//footer
+import FooterUser from './shared/components/template/FooterUser';
+import FooterHome from './shared/components/template/FooterHome';
+
+
+
 
 Vue.use(Router)
 
-
-export default new Router({
+const router = new Router({
         mode: 'history',
+        scrollBehavior(to, from, savedPosition) {
+            if(savedPosition) {
+                return savedPosition
+            } else if(to.hash) {
+                return { selector: to.hash }
+            } else {
+                return { x: 0, y: 0 }
+            }
+        },
         routes: [{
-            path: '/',
-            component: Index,
             name: Index,
+            path: '/',
+            components: {
+                default: Index,
+                footer: FooterHome
+            },
+            
         }, {
             path: '/user',
-            component: User,
+            components: {
+                default: User,
+                footer: FooterUser
+            },
             props: true,
             children: [
                 {
@@ -28,6 +49,8 @@ export default new Router({
                     path: ':id',
                     component: () => import('@/pages/User/components/ShowUser'),
                     props: true,
+                    
+
                 },
                 {
                     path: ':id/edit',
@@ -37,7 +60,20 @@ export default new Router({
                 },
 
             ]
+        }, {
+            path: '/usuario',
+            redirect: '/user'
+        }, {
+            path: '*',
+            redirect: '/'
         }]
     })
+    
+    router.beforeEnter((to, from, next) => {
+        console.log('antes das rotas(beforeEnter) -> global')
+        next()
+    })
 
+
+    export default router
 
