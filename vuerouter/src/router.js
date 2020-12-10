@@ -49,7 +49,10 @@ const router = new Router({
                     path: ':id',
                     component: () => import('@/pages/User/components/ShowUser'),
                     props: true,
-                    
+                    beforeEnter: (to, from, next) => {
+                        console.log('antes da rota(beforeEnter) -> usuário detalhe')
+                        next()
+                    }        
 
                 },
                 {
