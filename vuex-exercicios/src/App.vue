@@ -1,11 +1,10 @@
 <template>
 	<div id="app">
 		<h1>Exercícios Vuex</h1>
-		<div class="linha">
-			<Parametros />
+		<div>
 			<Loja />
-		</div>
-		<div class="linha">
+	
+		
 			<Carrinho />
 			<Resumo />
 		</div>
@@ -37,7 +36,7 @@ body {
 #app {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
+	text-align: left;
 	color: #FFF;
 }
 

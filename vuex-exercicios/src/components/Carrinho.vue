@@ -59,6 +59,6 @@ export default {
 
     .total {
         display: flex;
-        justify-content: flex-end;
+        justify-content: start;
     }
 </style>
