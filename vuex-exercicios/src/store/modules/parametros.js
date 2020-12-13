@@ -1,4 +1,5 @@
 export default {
+    namespaced: true,
     state: {
         quantidade: 2,
         preco: 19.99
