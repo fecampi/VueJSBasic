@@ -14,15 +14,15 @@ export default {
         }
     },
     mutations: {
-        adicionarProduto(state, payload) {
-            state.produtos.push(payload)
+        adicionarProduto(state, produto) {
+            state.produtos.push(produto)
         }
     },
     actions: {
-        adicionarProduto( state , payload) {
+        adicionarProduto( state , produto) {
         const autoriza = true;
         if (autoriza){
-            state.commit('adicionarProduto', payload)
+            state.commit('adicionarProduto', produto)
         }
                
   

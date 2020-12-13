@@ -20,7 +20,7 @@
             </table>
             <hr>
             <div class="total">
-                <span>Total: <strong>{{ valorTotal | dinheiro }}</strong></span>
+                <span>Total: <strong>{{ total | dinheiro }}</strong></span>
             </div>
         </div>
     </Painel>

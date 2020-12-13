@@ -1,5 +1,5 @@
 <script>
-import { mapGetters,mapActions  } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -7,11 +7,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("carrinho", ["valorTotal","produtos"]),
- 
+    ...mapGetters("carrinho", { total: "valorTotal", produtos: "produtos" }),
   },
   methods: {
-    ...mapActions('carrinho', ['adicionarProduto']),
+    ...mapActions("carrinho", ["adicionarProduto"]),
     adicionar(quantidade, preco) {
       const produto = {
         id: this.sequencia,
@@ -20,7 +19,7 @@ export default {
         preco,
       };
       this.sequencia++;
-      this.adicionarProduto(produto)
+      this.adicionarProduto(produto);
     },
   },
 };
