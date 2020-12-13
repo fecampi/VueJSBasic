@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import parametrosMixin from "../store/mixers/parametrosMixin";
+import parametrosMixin from "../store/mixers1/parametrosMixin";
 export default {
     mixins: [parametrosMixin],
    

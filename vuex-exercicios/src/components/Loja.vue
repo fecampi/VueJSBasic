@@ -12,8 +12,8 @@
 
 <script>
 
-import parametrosMixin from '../store/mixers/parametrosMixin'
-import carrinhoMixin from '../store/mixers/carrinhoMixin'
+import parametrosMixin from '../store/mixers1/parametrosMixin'
+import carrinhoMixin from '../store/mixers1/carrinhoMixin'
 
 export default {
     mixins: [parametrosMixin,carrinhoMixin],

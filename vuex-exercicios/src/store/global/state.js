@@ -1,5 +1,4 @@
-
-export default  {
-    nome: 'Maria',
-    sobrenome: 'Silva',
+export default {
+    user: 'Felipe',
+    idade: 20,
 }

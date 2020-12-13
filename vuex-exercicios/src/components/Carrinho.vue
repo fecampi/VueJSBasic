@@ -1,6 +1,7 @@
 <template>
     <Painel titulo="Carrinho" azul :notificacao="produtos.length">
         <div class="carrinho">
+            <p>Usuário: {{this.$store.getters.getUser}}</p>
             <table>
                 <thead>
                     <tr>
@@ -28,7 +29,7 @@
 <script>
 
 
-import carrinhoMixin from '../store/mixers/carrinhoMixin';
+import carrinhoMixin from '../store/mixers1/carrinhoMixin';
 export default {
     mixins: [carrinhoMixin],
 

@@ -1,4 +1,5 @@
 export default {
+    namespaced: true,
     state: {
         produtos: []
     },
@@ -6,6 +7,10 @@ export default {
         valorTotal(state) {
             return state.produtos.map(p => p.quantidade * p.preco)
                 .reduce((total, atual) => total + atual, 0)
+        },
+        //Versão para usar com os métodos
+        produtos(state){
+            return state.produtos
         }
     },
     mutations: {

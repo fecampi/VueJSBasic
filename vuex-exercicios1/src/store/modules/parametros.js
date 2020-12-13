@@ -1,10 +1,8 @@
 export default {
-    namespaced: true,
     state: {
         quantidade: 2,
         preco: 19.99
     },
-    
     mutations: {
         setQuantidade(state, payload) {
             state.quantidade = payload

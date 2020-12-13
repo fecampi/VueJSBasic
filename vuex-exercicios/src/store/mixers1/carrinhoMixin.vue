@@ -1,4 +1,5 @@
 <script>
+import { mapGetters,mapActions  } from "vuex";
 export default {
   data() {
     return {
@@ -6,14 +7,11 @@ export default {
     };
   },
   computed: {
-    valorTotal() {
-      return this.$store.getters.valorTotal;
-    },
-    produtos() {
-      return this.$store.state.carrinho.produtos;
-    },
+    ...mapGetters("carrinho", ["valorTotal","produtos"]),
+ 
   },
   methods: {
+    ...mapActions('carrinho', ['adicionarProduto']),
     adicionar(quantidade, preco) {
       const produto = {
         id: this.sequencia,
@@ -22,7 +20,7 @@ export default {
         preco,
       };
       this.sequencia++;
-      this.$store.dispatch("adicionarProduto", produto);
+      this.adicionarProduto(produto)
     },
   },
 };

@@ -1,8 +1,8 @@
 // export function getNome(state) {
 //     return state.nome
 // }
-export const getNome = state => state.nome
+export const getUser = state => state.user
 
 
-export const getNomeCompleto = state => state.nome + state.sobrenome
+export const getIdade = state => state.nome + state.idade
 
