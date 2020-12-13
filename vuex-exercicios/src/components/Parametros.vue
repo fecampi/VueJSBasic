@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import carrinhoMixin from "../store/mixers/carrinhoMixin";
+import parametrosMixin from "../store/mixers/parametrosMixin";
 export default {
-    mixins: [carrinhoMixin],
+    mixins: [parametrosMixin],
    
 }
 </script>

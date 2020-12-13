@@ -4,15 +4,13 @@ import Vuex from 'vuex'
 import carrinho from './modules/carrinho'
 import parametros from './modules/parametros'
 
-import * as getters from './getters'
+import state from './global/state';
+import * as getters from './global/getters';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        nome: 'Maria',
-        sobrenome: 'Silva',
-    },
+    state,
     getters,
     modules: { carrinho, parametros }
 })

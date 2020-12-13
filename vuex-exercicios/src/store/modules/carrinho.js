@@ -1,5 +1,4 @@
 export default {
-    namespaced: true,
     state: {
         produtos: []
     },
@@ -15,10 +14,13 @@ export default {
         }
     },
     actions: {
-        adicionarProduto({ commit }, payload) {
-            setTimeout(() => {
-                commit('adicionarProduto', payload)
-            }, 1000)
+        adicionarProduto( state , payload) {
+        const autoriza = true;
+        if (autoriza){
+            state.commit('adicionarProduto', payload)
+        }
+               
+  
         }
     }
 }

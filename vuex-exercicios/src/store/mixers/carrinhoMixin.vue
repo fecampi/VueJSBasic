@@ -1,23 +1,34 @@
 <script>
 export default {
-    computed: {
-        quantidade: {
-            get () {
-                return this.$store.state.parametros.quantidade
-            },
-            set (valor) {
-                this.$store.commit('setQuantidade', valor)
-            }
-        },
-        preco: {
-            get () {
-                return this.$store.state.parametros.preco
-            },
-            set (valor) {
-                this.$store.commit('setPreco', valor)
-            }
-        }
-    }
-}
+  data() {
+    return {
+      sequencia: 1,
+    };
+  },
+  computed: {
+    valorTotal: {
+      get() {
+        return this.$store.getters.valorTotal;
+      },
+    },
+    produtos: {
+      get() {
+        return this.$store.state.carrinho.produtos;
+      },
+    },
+  },
+  methods: {
+    adicionar(quantidade, preco) {
+      const produto = {
+        id: this.sequencia,
+        nome: `Produto ${this.sequencia}`,
+        quantidade,
+        preco,
+      };
+      this.sequencia++;
+      this.$store.dispatch('adicionarProduto',produto)
+    
+    },
+  },
+};
 </script>
-

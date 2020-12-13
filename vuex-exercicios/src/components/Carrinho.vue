@@ -19,27 +19,20 @@
             </table>
             <hr>
             <div class="total">
-                <span>Total: <strong>{{ total | dinheiro }}</strong></span>
+                <span>Total: <strong>{{ valorTotal | dinheiro }}</strong></span>
             </div>
         </div>
     </Painel>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
+
+import carrinhoMixin from '../store/mixers/carrinhoMixin';
 export default {
-    computed: {
-        ...mapGetters('carrinho', {
-            total: 'valorTotal'
-        }),
-        // total() {
-        //     return this.$store.getters.valorTotal
-        // },
-        produtos() {
-            return this.$store.state.carrinho.produtos
-        }
-    }
+    mixins: [carrinhoMixin],
+
+  
 }
 </script>
 
