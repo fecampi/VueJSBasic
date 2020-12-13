@@ -56,7 +56,7 @@ export default {
 <style>
     .loja {
         display: flex;
-        justify-content: left;
+        justify-content: center;
     }
 
     .loja > * {

@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import carrinho from './modules/carrinho'
 import parametros from './modules/parametros'
 
-import * as getters from './getters'
+import * as getters from './shared/getters'
 
 Vue.use(Vuex)
 
