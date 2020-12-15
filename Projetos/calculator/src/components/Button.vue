@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :class="{ double, triple, operation }">
+  <button @click="$emit('f-click',label)" class="button" :class="{ double, triple, operation }">
     {{ label }}
   </button>
 </template>
@@ -28,21 +28,20 @@ export default {
   border-bottom: var(--border-button);
   outline: none;
 }
-.button:active{
+.button:active {
   background-color: #ccc;
-
 }
-.button.double{
+.button.double {
   grid-column: span 2;
 }
-.button.triple{
+.button.triple {
   grid-column: span 3;
 }
-.button.operation{
+.button.operation {
   background-color: #fa8231;
   color: #fff;
 }
-.button.operation:active{
+.button.operation:active {
   background-color: #fa8231cc;
   color: #fff;
 }

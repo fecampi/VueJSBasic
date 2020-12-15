@@ -1,25 +1,23 @@
 <template>
   <div class="calculator">
-    <Display value="10000"/>
-    <Button label="AC" triple/>
-    <Button label="/" operation/>
-    <Button label="7"/>
-    <Button label="8"/>
-    <Button label="8"/>
-    <Button label="*" operation/>
-    <Button label="4"/>
-    <Button label="5"/>
-    <Button label="6"/>
-    <Button label="-" operation/>
-    <Button label="1"/>
-    <Button label="2"/>
-    <Button label="3"/>
-    <Button label="+" operation/>
-    <Button label="0" double/>
-    <Button label="."/>
-    <Button label="=" operation/>
-
- 
+    <Display value="10000" />
+    <Button label="AC" triple @f-click="clearMemory" />
+    <Button label="/" operation @f-click="setOperation" />
+    <Button label="7" @f-click="addDigit" />
+    <Button label="8" @f-click="addDigit" />
+    <Button label="8" @f-click="addDigit" />
+    <Button label="*" operation @f-click="setOperation" />
+    <Button label="4" @f-click="addDigit" />
+    <Button label="5" @f-click="addDigit" />
+    <Button label="6" @f-click="addDigit" />
+    <Button label="-" operation @f-click="setOperation" />
+    <Button label="1" @f-click="addDigit" />
+    <Button label="2" @f-click="addDigit" />
+    <Button label="3" @f-click="addDigit" />
+    <Button label="+" operation @f-click="setOperation" />
+    <Button label="0" double @f-click="addDigit" />
+    <Button label="." @f-click="addDigit" />
+    <Button label="=" operation @f-click="setOperation" />
   </div>
 </template>
 
@@ -28,6 +26,17 @@ import Display from "../components/Display";
 import Button from "../components/Button";
 export default {
   components: { Button, Display },
+  methods: {
+    clearMemory() {
+      console.log("Limpar Memória!");
+    },
+    setOperation(operation) {
+      console.log("Operação " + operation);
+    },
+    addDigit(n) {
+      console.log("Digito " + n);
+    },
+  },
 };
 </script>
 
