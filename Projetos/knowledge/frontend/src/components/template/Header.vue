@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
+    <a class="toggle" @click="toggleMenu()">
       <!-- font-awesome -->
       <i class="fa fa-lg" :class="icon"></i>
     </a>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import {  mapMutations } from "vuex";
 export default {
   name: "Header",
   props: {
@@ -23,9 +24,7 @@ export default {
     },
   },
   methods: {
-    toggleMenu() {
-      console.log("toggleMenu");
-    },
+    ...mapMutations("menuStatus",["toggleMenu"]),
   },
 };
 </script>

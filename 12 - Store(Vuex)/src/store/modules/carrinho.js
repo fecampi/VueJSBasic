@@ -2,6 +2,8 @@ export default {
     namespaced: true,
 
     //Estados
+    // import { mapState } from 'vuex'
+    // mapState("nameModule",['state1']),
     state: {
         produtos: [],
         quantidade: 2,
@@ -9,6 +11,7 @@ export default {
     },
 
     //Getters
+    
     getters: {
         getValorTotalProdutos(state) {
             return state.produtos.map(p => p.quantidade * p.preco)
@@ -26,6 +29,8 @@ export default {
     },
 
     //setters
+    // import {  mapMutations } from "vuex";
+    // ...mapMutations("nameModule", ["setQuantidade", "setPreco"]),
     mutations: {
         adicionarProduto(state, produto) {
             state.produtos.push(produto)
@@ -39,6 +44,7 @@ export default {
     },
 
     //Regras de Negocio
+    // ...mapActions("nameModule", ["action1]),
     actions: {
         adicionarProduto(state, produto) {
             const autoriza = true;
