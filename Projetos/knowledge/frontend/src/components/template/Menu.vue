@@ -1,12 +1,15 @@
 <template>
- <aside class="menu" v-show="isMenuVisible"></aside> 
+  <aside class="menu" v-show="isMenuVisible"></aside>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "Menu",
-  computed: mapState("menuStatus",['isMenuVisible']),  
+  computed: mapState("menuStatus", ["isMenuVisible"]),
+  icon() {
+    return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down";
+  },
 };
 </script>
 <style>

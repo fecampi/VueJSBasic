@@ -12,6 +12,7 @@
 
 <script>
 import {  mapMutations } from "vuex";
+import { mapState } from 'vuex'
 export default {
   name: "Header",
   props: {
@@ -19,8 +20,9 @@ export default {
     hideToggle: Boolean,
   },
   computed: {
+    ...mapState("menuStatus",['isMenuVisible']),  
     icon() {
-      return "fa-angle-left";
+      return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down"
     },
   },
   methods: {
