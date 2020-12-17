@@ -79,9 +79,9 @@ export default {
       let oldValue = this.displayValue;
 
       const OldHavePoint = oldValue.toString().indexOf(".") > -1;
-      const OldValuePointInicial = (oldValue.toString().indexOf(".") == 0)
+      const OldValuePointInicial = oldValue.toString().indexOf(".") == 0;
       const NewHavePoint = newValue === ".";
-      
+
       if (NewHavePoint && OldHavePoint) {
         return;
       }
@@ -89,13 +89,11 @@ export default {
       if (oldValue === 0 || this.clearDisplay || OldValuePointInicial) {
         oldValue = "";
       }
-      this.displayValue = oldValue + newValue;
-      this.clearDisplay = false;
 
-      if (newValue !== ".") {
-        const indice = this.current;
-        this.values[indice] = parseFloat(this.displayValue);
-      }
+      this.displayValue = oldValue + newValue;
+      const indice = this.current;
+      this.values[indice] = this.displayValue;
+      this.clearDisplay = false;
     },
   },
 };
