@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <Header />
+     <Header
+      title="notion"
+      :hideToggle="false"
+
+    />
     <Menu />
-    <Loading />
     <Content />
     <Footer />
   </div>
@@ -20,11 +23,25 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "header header"
+    "menu content"
+    "menu footer";
 }
 </style>
