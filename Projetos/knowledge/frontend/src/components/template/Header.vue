@@ -1,23 +1,27 @@
 <template>
   <header class="header">
-    <a class="toggle" @click="toggleMenu()">
+    <a class="toggle" @click="toggleMenu()"  v-if="!hideToggle">
       <!-- font-awesome -->
       <i class="fa fa-lg" :class="icon"></i>
     </a>
     <h1 class="title">
       {{ title }}
     </h1>
+    <UserDropdown v-if="!hideUserDropdown" />
   </header>
 </template>
 
 <script>
+import UserDropdown from './UserDropdown'
 import {  mapMutations } from "vuex";
 import { mapState } from 'vuex'
 export default {
   name: "Header",
+   components: { UserDropdown },
   props: {
     title: String,
     hideToggle: Boolean,
+    hideUserDropdown: Boolean
   },
   computed: {
     ...mapState("menuStatus",['isMenuVisible']),  
@@ -38,6 +42,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 .title {
   font-size: 1.2rem;

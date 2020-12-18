@@ -4,8 +4,9 @@ import App from './App.vue'
 
 //utils
 import '@/utils'
-import store from './store/store'
 
+//store
+import store from '@/store'
 
 
 

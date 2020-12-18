@@ -1,16 +1,18 @@
 <template>
-  <div id="app" :class="changeGrid">
-    <Header title="notion" MenuVisible />
-    <fade-Transition :duration="300">
-      <Menu v-if="isMenuVisible" />
-    </fade-Transition>
+  <div id="app" :class="{ isMenuVisible }">
+       <Header
+      title="Cod3r - Base de Conhecimento"
+      :hideToggle="false"
+      :hideUserDropdown="false"
+    />
+    <Menu />
+
     <Content />
     <Footer />
   </div>
 </template>
 
 <script>
-import { FadeTransition } from "vue2-transitions";
 import { mapState } from "vuex";
 import Header from "@/components/template/Header";
 import Menu from "@/components/template/Menu";
@@ -19,10 +21,8 @@ import Footer from "@/components/template/Footer";
 export default {
   name: "App",
   props: { MenuVisible: { type: Boolean } },
-  components: { Header, Menu, Content, Footer, FadeTransition },
+  components: { Header, Menu, Content, Footer },
   computed: mapState("menuStatus", ["isMenuVisible"]),
-
-
 };
 </script>
 
@@ -46,14 +46,14 @@ body {
   grid-template-columns: 300px 1fr;
   grid-template-areas:
     "header header"
-    "menu content"
-    "menu footer";
+    "content content"
+    "footer footer";
 }
 
-#app.MenuVisible {
+#app.isMenuVisible {
   grid-template-areas:
     "header header"
-    "content content"
+    "menu content"
     "footer footer";
 }
 </style>
