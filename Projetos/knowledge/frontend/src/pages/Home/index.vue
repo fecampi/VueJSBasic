@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     getStats() {
-      this.axios.get("stats").then((res) => {
+      this.$axios.get("stats").then((res) => {
         this.stat = res.data;
       });
     },

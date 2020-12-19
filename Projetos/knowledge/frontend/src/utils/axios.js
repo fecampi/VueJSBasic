@@ -6,7 +6,7 @@ import { baseApiUrl, token } from "@/global";
 
 Vue.use({
     install(Vue) {
-        Vue.prototype.axios = axios.create({
+        Vue.prototype.$axios = axios.create({
             baseURL: `${baseApiUrl}/`,
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -15,7 +15,7 @@ Vue.use({
         })
 
          //Intercetar requisição
-        // Vue.prototype.$http.interceptors.request.use(config => {
+        // Vue.prototype.$axios.interceptors.request.use(config => {
         //     // console.log(config.method)
         //     // if(config.method == 'post') {
         //     //     config.method = 'put'
@@ -25,7 +25,7 @@ Vue.use({
 
         //Intercetar resposta
         //Firebase -> incluir o id no array [id, ...]
-        // Vue.prototype.$http.interceptors.response.use(res => {
+        // Vue.prototype.$axios.interceptors.response.use(res => {
         //     const array = []
         //     for(let chave in res.data) {
         //         array.push({ id: chave, ...res.data[chave] })
