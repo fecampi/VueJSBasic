@@ -10,9 +10,9 @@
 
     <!-- Itens -->
     <div class="user-dropdown-content">
-      <!-- item 1 -->
-      <a href><i class="fa fa-cogs"></i> Administração</a>
-      <!-- item 2 -->
+      <router-link to="/admin">
+        <i class="fa fa-cogs"></i> Administração
+      </router-link>
       <a href @click.prevent="logout"><i class="fa fa-sign-out"></i> Sair</a>
     </div>
   </div>

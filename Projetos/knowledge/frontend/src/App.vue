@@ -1,7 +1,7 @@
 <template>
   <div id="app" :class="{ isMenuVisible }">
        <Header
-      title="Cod3r - Base de Conhecimento"
+      title="Fecampi"
       :hideToggle="false"
       :hideUserDropdown="false"
     />

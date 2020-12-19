@@ -1,36 +1,36 @@
 <template>
   <header class="header">
-    <a class="toggle" @click="toggleMenu()"  v-if="!hideToggle">
+    <a class="toggle" @click="toggleMenu()" v-if="!hideToggle">
       <!-- font-awesome -->
       <i class="fa fa-lg" :class="icon"></i>
     </a>
     <h1 class="title">
-      {{ title }}
+      <router-link to="/">{{ title }}</router-link>
     </h1>
     <UserDropdown v-if="!hideUserDropdown" />
   </header>
 </template>
 
 <script>
-import UserDropdown from './UserDropdown'
-import {  mapMutations } from "vuex";
-import { mapState } from 'vuex'
+import UserDropdown from "./UserDropdown";
+import { mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "Header",
-   components: { UserDropdown },
+  components: { UserDropdown },
   props: {
     title: String,
     hideToggle: Boolean,
-    hideUserDropdown: Boolean
+    hideUserDropdown: Boolean,
   },
   computed: {
-    ...mapState("menuStatus",['isMenuVisible']),  
+    ...mapState("menuStatus", ["isMenuVisible"]),
     icon() {
-      return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down"
+      return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down";
     },
   },
   methods: {
-    ...mapMutations("menuStatus",["toggleMenu"]),
+    ...mapMutations("menuStatus", ["toggleMenu"]),
   },
 };
 </script>
@@ -42,7 +42,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .title {
   font-size: 1.2rem;
