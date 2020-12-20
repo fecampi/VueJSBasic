@@ -1,16 +1,8 @@
-import Vue from 'vue'
+
 
 export const baseApiUrl = 'http://localhost:4000'
-export const token = '_';
+export const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NDU2Mjk3LCJleHAiOjE2MDg3MTU0OTd9.uMmTHYKQ_ZSZnMhFf5eipp9HPJeiWaTh44UoEhKLBdE';
 
-export function showError(e) {
-    if(e && e.response && e.response.data) {
-        Vue.toasted.global.defaultError({ msg : e.response.data })
-    } else if(typeof e === 'string') {
-        Vue.toasted.global.defaultError({ msg : e })
-    } else {
-        Vue.toasted.global.defaultError()
-    }
-}
 
-export default { baseApiUrl, showError}
+
+export default { baseApiUrl}

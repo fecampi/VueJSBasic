@@ -73,6 +73,7 @@ export default {
     name: 'UserAdmin',
     data: function() {
         return {
+            //Tres modos: Deletar, Salvar e Trocar
             mode: 'save',
             user: {},
             users: [],
@@ -81,6 +82,7 @@ export default {
                 { key: 'name', label: 'Nome', sortable: true },
                 { key: 'email', label: 'E-mail', sortable: true },
                 { key: 'admin', label: 'Administrador', sortable: true,
+                //renderizar sim e não inves de true e
                     formatter: value => value ? 'Sim' : 'Não' },
                 { key: 'actions', label: 'Ações' }
             ]

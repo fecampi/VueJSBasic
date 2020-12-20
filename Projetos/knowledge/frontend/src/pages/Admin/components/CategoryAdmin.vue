@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { showError } from '@/global'
+
 
 export default {
     name: 'CategoryAdmin',
@@ -74,19 +74,19 @@ export default {
             const id = this.category.id ? `/${this.category.id}` : ''
             this.$axios[method](`categories${id}`, this.category)
                 .then(() => {
-                    this.$toasted.global.defaultSuccess()
+                    this.$showSuccess()
                     this.reset()
                 })
-                .catch(showError)
+                .catch(this.$showError)
         },
         remove() {
             const id = this.category.id
             this.$axios.delete(`categories/${id}`)
                 .then(() => {
-                    this.$toasted.global.defaultSuccess()
+                    this.$showSuccess()
                     this.reset()
                 })
-                .catch(showError)
+                .catch(this.$showError)
         },
         loadCategory(category, mode = 'save') {
             this.mode = mode
