@@ -8,7 +8,7 @@ import '@/utils'
 //store
 import store from '@/store'
 
-//Touter
+//Router
 import router from './router';
 
 Vue.config.productionTip = false
