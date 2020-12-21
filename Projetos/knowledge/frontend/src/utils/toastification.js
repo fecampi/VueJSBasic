@@ -4,7 +4,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 const options = {
-    timeout: 3000,
+    timeout: 3000, 
 };
 
 Vue.use({

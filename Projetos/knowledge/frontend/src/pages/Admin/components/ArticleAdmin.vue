@@ -68,17 +68,17 @@
           placeholder="Informe o Conteúdo do Artigo..."
         />
       </b-form-group>
-      <b-button variant="primary" v-if="mode === 'save'" @click="save"
+      <b-button variant="primary" v-if="mode === 'save'" @click="save('article','articles')"
         >Salvar</b-button
       >
-      <b-button variant="danger" v-if="mode === 'remove'" @click="remove"
+      <b-button variant="danger" v-if="mode === 'remove'" @click="remove('article','articles')"
         >Excluir</b-button
       >
       <b-button class="ml-2" @click="reset">Cancelar</b-button>
     </b-form>
     <hr />
     <b-table hover striped :items="articles" :fields="fields">
-      <template slot="actions" slot-scope="data">
+      <template slot="cell(actions)" slot-scope="data">
         <b-button
           variant="warning"
           @click="loadArticle(data.item)"
@@ -102,7 +102,6 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-import {  showError } from "@/global";
 
 
 export default {
@@ -139,26 +138,8 @@ export default {
       this.article = {};
       this.loadArticles();
     },
-    save() {
-      const method = this.article.id ? "put" : "post";
-      const id = this.article.id ? `/${this.article.id}` : "";
-      this.$axios[method](`articles${id}`, this.article)
-        .then(() => {
-          this.$toasted.global.defaultSuccess();
-          this.reset();
-        })
-        .catch(showError);
-    },
-    remove() {
-      const id = this.article.id;
-      this.$axios
-        .delete(`articles/${id}`)
-        .then(() => {
-          this.$toasted.global.defaultSuccess();
-          this.reset();
-        })
-        .catch(showError);
-    },
+   
+
     loadArticle(article, mode = "save") {
       this.mode = mode;
       this.$axios

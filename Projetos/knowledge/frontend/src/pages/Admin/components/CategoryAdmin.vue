@@ -18,14 +18,14 @@
                     readonly />
             </b-form-group>
             <b-button variant="primary" v-if="mode === 'save'"
-                @click="save">Salvar</b-button>
+                @click="save('category','categories')">Salvar</b-button>
             <b-button variant="danger" v-if="mode === 'remove'"
-                @click="remove">Excluir</b-button>
+                @click="remove('category','categories')">Excluir</b-button>
             <b-button class="ml-2" @click="reset">Cancelar</b-button>
         </b-form>
         <hr>
         <b-table hover striped :items="categories" :fields="fields">
-            <template slot="actions" slot-scope="data">
+            <template slot="cell(actions)" slot-scope="data">
                 <b-button variant="warning" @click="loadCategory(data.item)" class="mr-2">
                     <i class="fa fa-pencil"></i>
                 </b-button>
@@ -58,7 +58,6 @@ export default {
     methods: {
         loadCategories() {
             this.$axios.get("categories").then(res => {
-                // this.categories = res.data
                 this.categories = res.data.map(category => {
                     return { ...category, value: category.id, text: category.path }
                 })
@@ -69,25 +68,8 @@ export default {
             this.category = {}
             this.loadCategories()
         },
-        save() {
-            const method = this.category.id ? 'put' : 'post'
-            const id = this.category.id ? `/${this.category.id}` : ''
-            this.$axios[method](`categories${id}`, this.category)
-                .then(() => {
-                    this.$showSuccess()
-                    this.reset()
-                })
-                .catch(this.$showError)
-        },
-        remove() {
-            const id = this.category.id
-            this.$axios.delete(`categories/${id}`)
-                .then(() => {
-                    this.$showSuccess()
-                    this.reset()
-                })
-                .catch(this.$showError)
-        },
+    
+      
         loadCategory(category, mode = 'save') {
             this.mode = mode
             this.category = { ...category }

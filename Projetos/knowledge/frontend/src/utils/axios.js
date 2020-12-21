@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
-import { baseApiUrl, token } from "@/global";
 
-
+const baseApiUrl = 'http://localhost:4000'
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NDU2Mjk3LCJleHAiOjE2MDg3MTU0OTd9.uMmTHYKQ_ZSZnMhFf5eipp9HPJeiWaTh44UoEhKLBdE';
 
 Vue.use({
     install(Vue) {
         Vue.prototype.$axios = axios.create({
-            baseURL: `${baseApiUrl}/`,
+            baseURL: baseApiUrl,
             headers: {
                 "Authorization": `Bearer ${token}`
             }
