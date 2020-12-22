@@ -1,6 +1,6 @@
 <template>
   <div class="user-admin">
-    <b-form>
+    <b-form v-if="mode !== 'list'">
       <!-- input escondido -->
       <input id="user-id" type="hidden" v-model="user.id" />
       <b-row>
@@ -40,40 +40,34 @@
           />
         </b-col>
         <b-col md="6" sm="12">
-          <b-form-group
-            label="Confirmação de Senha:"
-            label-for="user-confirm-password"
-          >
-            <b-form-input
-              id="user-confirm-password"
-              type="password"
-              v-model="user.confirmPassword"
-              required
-              placeholder="Confirme a Senha do Usuário..."
-            />
-          </b-form-group>
+          <Input
+            id="user-confirm-password"
+            type="password"
+            label="Confirmação de Senha: Confirme a Senha do Usuário..."
+            v-model="user.confirmPassword"
+            :readonly="mode === 'remove'"
+          />
         </b-col>
       </b-row>
-      <b-row>
-        <b-col xs="12">
-          <b-button
-            variant="primary"
-            v-if="mode === 'save'"
-            @click="save('user', 'users')"
-            >Salvar</b-button
-          >
-          <b-button
-            variant="danger"
-            v-if="mode === 'remove'"
-            @click="remove('user', 'users')"
-            >Excluir</b-button
-          >
-          <b-button class="ml-2" @click="reset">Cancelar</b-button>
-        </b-col>
-      </b-row>
+
+      <SmartCud
+        :mode="mode"
+        @completed="SmartCudCompleted"
+        :resource="user"
+        resources="users"
+      />
+      <br />
     </b-form>
-    <hr />
-    <b-table hover striped :items="users" :fields="fields">
+    <b-button class="mt-2 mb-2" v-if="mode === 'list'" @click="mode = 'save'"
+      >Criar novo usuário</b-button
+    >
+    <b-table
+      class="table-sm"
+      hover
+      :items="users"
+      :fields="fields"
+      v-if="mode === 'list'"
+    >
       <template slot="cell(actions)" slot-scope="data">
         <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
           <i class="fa fa-pencil"></i>
@@ -87,14 +81,15 @@
 </template>
 
 <script>
-import Input from "../../../components/template/Input";
+import Input from "../../../components/Input";
+import SmartCud from "../../../components/SmartCud";
 export default {
   name: "UserAdmin",
-  components: { Input },
+  components: { Input, SmartCud },
   data: function () {
     return {
       //Tres modos: Deletar, Salvar e Trocar
-      mode: "save",
+      mode: "list",
       user: {},
       users: [],
       fields: [
@@ -116,16 +111,17 @@ export default {
     loadUsers() {
       this.$axios.get("users").then((res) => {
         this.users = res.data;
+        console.log(this.users)
       });
     },
-    reset() {
-      this.mode = "save";
+
+    SmartCudCompleted() {
+      this.mode = "list";
       this.user = {};
       this.loadUsers();
     },
 
     loadUser(user, mode = "save") {
-      console.log();
       this.mode = mode;
       this.user = { ...user };
     },

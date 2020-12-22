@@ -54,6 +54,6 @@ body {
   grid-template-areas:
     "header header"
     "menu content"
-    "footer footer";
+    "menu footer";
 }
 </style>
