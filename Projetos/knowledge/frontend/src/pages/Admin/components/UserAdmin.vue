@@ -1,8 +1,12 @@
 <template>
   <div class="user-admin">
-    <b-form v-if="mode !== 'list'">
-      <!-- input escondido -->
-      <input id="user-id" type="hidden" v-model="user.id" />
+    <SmartForm
+      id="user-id"
+      :mode="mode"
+      :resource="user"
+      resources="users"
+      @completed="cleanFields"
+    >
       <b-row>
         <b-col md="6" sm="12">
           <Input
@@ -27,7 +31,7 @@
         v-model="user.admin"
         class="mt-3 mb-3"
       >
-        Administrador ?
+        Administrador
       </b-form-checkbox>
       <b-row v-show="mode === 'save'">
         <b-col md="6" sm="12">
@@ -49,43 +53,28 @@
           />
         </b-col>
       </b-row>
+    </SmartForm>
+    <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
+      Criar novo usuário
+    </b-button>
 
-      <SmartCud
-        :mode="mode"
-        @completed="SmartCudCompleted"
-        :resource="user"
-        resources="users"
-      />
-      <br />
-    </b-form>
-    <b-button class="mt-2 mb-2" v-if="mode === 'list'" @click="mode = 'save'"
-      >Criar novo usuário</b-button
-    >
-    <b-table
-      class="table-sm"
-      hover
-      :items="users"
+    <SmartTable
+      :mode="mode"
+      :resources="users"
       :fields="fields"
-      v-if="mode === 'list'"
-    >
-      <template slot="cell(actions)" slot-scope="data">
-        <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
-          <i class="fa fa-pencil"></i>
-        </b-button>
-        <b-button variant="danger" @click="loadUser(data.item, 'remove')">
-          <i class="fa fa-trash"></i>
-        </b-button>
-      </template>
-    </b-table>
+      @completed="loadResource"
+    />
   </div>
 </template>
 
 <script>
 import Input from "../../../components/Input";
-import SmartCud from "../../../components/SmartCud";
+import SmartTable from "../../../components/SmartTable";
+import SmartForm from "../../../components/SmartForm";
+
 export default {
   name: "UserAdmin",
-  components: { Input, SmartCud },
+  components: { Input, SmartForm, SmartTable },
   data: function () {
     return {
       //Tres modos: Deletar, Salvar e Trocar
@@ -103,31 +92,29 @@ export default {
           //renderizar sim e não inves de true e
           formatter: (value) => (value ? "Sim" : "Não"),
         },
-        { key: "actions", label: "Ações" },
       ],
     };
   },
   methods: {
-    loadUsers() {
+    getRecources() {
       this.$axios.get("users").then((res) => {
         this.users = res.data;
-        console.log(this.users)
       });
     },
 
-    SmartCudCompleted() {
+    cleanFields() {
       this.mode = "list";
       this.user = {};
-      this.loadUsers();
+      this.getRecources();
     },
 
-    loadUser(user, mode = "save") {
+    loadResource(resource, mode = "save") {
       this.mode = mode;
-      this.user = { ...user };
+      this.user = { ...resource };
     },
   },
   mounted() {
-    this.loadUsers();
+    this.getRecources();
   },
 };
 </script>

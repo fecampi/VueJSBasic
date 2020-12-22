@@ -10,7 +10,7 @@
       :placeholder="label.slice(label.indexOf(': ') + 2)"
       :value="value"
       :required="required"
-      v-on:input="updateValue($event.target.value)"
+      v-on:input="updateValue($event)"
       :readonly="readonly"
     />
   </b-form-group>
@@ -44,8 +44,8 @@ export default {
   },
 
   methods: {
-    updateValue: function (value) {
-      this.$emit("input", value);
+    updateValue(value) {
+      this.$emit("input", value.target.value);
     },
   },
 };

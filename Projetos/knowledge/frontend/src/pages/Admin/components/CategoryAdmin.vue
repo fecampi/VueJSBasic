@@ -1,86 +1,78 @@
 <template>
-    <div class="category-admin">
-        <b-form>
-            <input id="category-id" type="hidden" v-model="category.id" />
-            <b-form-group label="Nome:" label-for="category-name">
-                <b-form-input id="category-name" type="text"
-                    v-model="category.name" required
-                    :readonly="mode === 'remove'"
-                    placeholder="Informe o Nome da Categoria..." />
-            </b-form-group>
-            <b-form-group label="Categoria Pai:" label-for="category-parentId">
-                <b-form-select v-if="mode === 'save'"
-                    id="category-parentId"
-                    :options="categories" v-model="category.parentId" />
-                <b-form-input v-else
-                    id="category-parentId" type="text"
-                    v-model="category.path"
-                    readonly />
-            </b-form-group>
-            <b-button variant="primary" v-if="mode === 'save'"
-                @click="save('category','categories')">Salvar</b-button>
-            <b-button variant="danger" v-if="mode === 'remove'"
-                @click="remove('category','categories')">Excluir</b-button>
-            <b-button class="ml-2" @click="reset">Cancelar</b-button>
-        </b-form>
-        <hr>
-        <b-table hover striped :items="categories" :fields="fields">
-            <template slot="cell(actions)" slot-scope="data">
-                <b-button variant="warning" @click="loadCategory(data.item)" class="mr-2">
-                    <i class="fa fa-pencil"></i>
-                </b-button>
-                <b-button variant="danger" @click="loadCategory(data.item, 'remove')">
-                    <i class="fa fa-trash"></i>
-                </b-button>
-            </template>
-        </b-table>
-    </div>
+  <div class="category-admin">
+    <SmartForm
+      id="category-id"
+      :mode="mode"
+      :resource="category"
+      resources="categories"
+      @completed="cleanFields"
+    >
+      <Input
+        id="category-name"
+        label="Nome: Informe o nome da categoria.."
+        v-model="category.name"
+        :readonly="mode === 'remove'"
+      />
+   
+    </SmartForm>
+    <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
+      Criar novo usuário
+    </b-button>
+
+    <SmartTable
+      :mode="mode"
+      :resources="categories"
+      :fields="fields"
+      @completed="loadResource"
+    />
+  </div>
 </template>
 
 <script>
-
+import Input from "../../../components/Input";
+import SmartTable from "../../../components/SmartTable";
+import SmartForm from "../../../components/SmartForm";
 
 export default {
-    name: 'CategoryAdmin',
-    data: function() {
-        return {
-            mode: 'save',
-            category: {},
-            categories: [],
-            fields: [
-                { key: 'id', label: 'Código', sortable: true },
-                { key: 'name', label: 'Nome', sortable: true },
-                { key: 'path', label: 'Caminho', sortable: true },
-                { key: 'actions', label: 'Ações' }
-            ]
-        }
+  name: "CategoryAdmin",
+  components: { Input, SmartForm, SmartTable },
+  data: function () {
+    return {
+      mode: "list",
+      category: {},
+      categories: [],
+      fields: [
+        { key: "id", label: "Código", sortable: true },
+        { key: "name", label: "Nome", sortable: true },
+        { key: "path", label: "Caminho", sortable: true },
+      ],
+    };
+  },
+  methods: {
+    getResources() {
+      this.$axios.get("categories").then((res) => {
+        this.categories = res.data.map((category) => {
+          return { ...category, value: category.id, text: category.path };
+        });
+      });
     },
-    methods: {
-        loadCategories() {
-            this.$axios.get("categories").then(res => {
-                this.categories = res.data.map(category => {
-                    return { ...category, value: category.id, text: category.path }
-                })
-            })
-        },
-        reset() {
-            this.mode = 'save'
-            this.category = {}
-            this.loadCategories()
-        },
-    
-      
-        loadCategory(category, mode = 'save') {
-            this.mode = mode
-            this.category = { ...category }
-        }
+    cleanFields() {
+      console.log("oi")
+      this.mode = "list";
+      this.category = {};
+      this.getResources();
     },
-    mounted() {
-        this.loadCategories()
-    }
-}
+
+    loadResource(resource, mode = "list") {
+      this.mode = mode;
+      this.category = { ...resource };
+    },
+  },
+  mounted() {
+    this.loadResource();
+  },
+};
 </script>
 
 <style>
-
 </style>
