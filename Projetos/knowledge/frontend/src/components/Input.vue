@@ -1,6 +1,6 @@
 <template>
   <b-form-group
-    :label="this.label.slice(0, this.label.indexOf(':') + 1)"
+    :label="label.slice(0, this.label.indexOf(':') + 1)"
     :label-for="id"
   >
     <input
@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  name: "Input",
   props: {
     id: {
       type: String,
@@ -46,6 +47,12 @@ export default {
   methods: {
     updateValue(value) {
       this.$emit("input", value.target.value);
+    },
+    comboBox(resources, text) {
+      const combo = this[resources].map((item) => {
+        return { value: item.id, text: item[text] };
+      });
+      console.log(combo);
     },
   },
 };

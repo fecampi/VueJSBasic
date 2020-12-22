@@ -13,10 +13,16 @@
         v-model="category.name"
         :readonly="mode === 'remove'"
       />
-   
+      <Select
+        :mode="mode"
+        label="Categoria Pai:"
+        slug="path"
+        :recources="categories"
+        v-model="category.parentId"
+      />
     </SmartForm>
     <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
-      Criar novo usuário
+      Criar nova categoria
     </b-button>
 
     <SmartTable
@@ -32,10 +38,11 @@
 import Input from "../../../components/Input";
 import SmartTable from "../../../components/SmartTable";
 import SmartForm from "../../../components/SmartForm";
+import Select from "../../../components/Select";
 
 export default {
   name: "CategoryAdmin",
-  components: { Input, SmartForm, SmartTable },
+  components: { Input, SmartForm, SmartTable, Select },
   data: function () {
     return {
       mode: "list",
@@ -51,25 +58,24 @@ export default {
   methods: {
     getResources() {
       this.$axios.get("categories").then((res) => {
-        this.categories = res.data.map((category) => {
-          return { ...category, value: category.id, text: category.path };
-        });
+        this.categories = res.data;
       });
     },
+
     cleanFields() {
-      console.log("oi")
+      console.log(this.category.parentId);
       this.mode = "list";
       this.category = {};
       this.getResources();
     },
 
-    loadResource(resource, mode = "list") {
+    loadResource(resource, mode = "save") {
       this.mode = mode;
       this.category = { ...resource };
     },
   },
   mounted() {
-    this.loadResource();
+    this.getResources();
   },
 };
 </script>
