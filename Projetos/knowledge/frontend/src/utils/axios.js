@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const baseApiUrl = 'http://localhost:4000'
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NDU2Mjk3LCJleHAiOjE2MDg3MTU0OTd9.uMmTHYKQ_ZSZnMhFf5eipp9HPJeiWaTh44UoEhKLBdE';
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NzIyNTg5LCJleHAiOjE2MDg5ODE3ODl9.MxH6yQTFi-OPf3Z-gK5cMbov4M8B6BpiOnulJq3yNZE'
 
 Vue.use({
     install(Vue) {

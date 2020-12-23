@@ -55,7 +55,7 @@
       </b-row>
     </SmartForm>
     <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
-      Criar novo usuário
+      <i style="font-size: 30px;" class="fas fa-user-plus"></i> Criar novo usuário
     </b-button>
 
     <SmartTable
@@ -69,6 +69,7 @@
 
 <script>
 import Input from "../../../components/Input";
+
 import SmartTable from "../../../components/SmartTable";
 import SmartForm from "../../../components/SmartForm";
 

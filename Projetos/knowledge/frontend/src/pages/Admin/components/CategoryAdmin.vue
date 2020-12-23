@@ -14,11 +14,14 @@
         :readonly="mode === 'remove'"
       />
       <Select
+        id="category-parentId"
         :mode="mode"
         label="Categoria Pai:"
-        slug="path"
+        slug="name"
+        :recource=category
         :recources="categories"
         v-model="category.parentId"
+        
       />
     </SmartForm>
     <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
@@ -63,7 +66,6 @@ export default {
     },
 
     cleanFields() {
-      console.log(this.category.parentId);
       this.mode = "list";
       this.category = {};
       this.getResources();

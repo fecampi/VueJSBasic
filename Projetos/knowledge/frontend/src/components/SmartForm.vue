@@ -6,15 +6,19 @@
       <slot />
       <b-row>
         <b-col xs="12">
-          <b-button class="mr-2" @click="$emit('completed')">Voltar</b-button>
+          <b-button class="mr-2" @click="$emit('completed')">
+            <i class="mr-2 fas fa-step-backward"></i>
+            Voltar
+            
+            </b-button>
           <b-button
             variant="primary"
             v-if="mode === 'save'"
             @click="save(resource, resources)"
-            >Salvar</b-button
+            > Salvar <i class="ml-2 fas fa-save"></i></b-button
           >
           <b-button variant="danger" v-if="mode === 'remove'" @click="remove()"
-            >Excluir</b-button
+            >Excluir <i class="ml-2 fas fa-trash-alt"></i> </b-button
           >
         </b-col>
       </b-row>

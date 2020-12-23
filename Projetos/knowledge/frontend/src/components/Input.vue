@@ -48,12 +48,6 @@ export default {
     updateValue(value) {
       this.$emit("input", value.target.value);
     },
-    comboBox(resources, text) {
-      const combo = this[resources].map((item) => {
-        return { value: item.id, text: item[text] };
-      });
-      console.log(combo);
-    },
   },
 };
 </script>

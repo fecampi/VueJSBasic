@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-table
-      class="table-sm"
+    <b-table 
+      class="table-sm "
       id="my-table"
       hover
       :items="resources"
@@ -11,28 +11,28 @@
       :current-page="currentPage"
       small
     >
-      <template slot="cell(actions)" slot-scope="data">
-        <b-button
-          variant="warning"
-          @click="$emit('completed', data.item)"
-          class="mr-2"
-        >
+      <template  slot="cell(actions)" slot-scope="data">
+        
+        <b-button variant="info" @click="$emit('completed', data.item)">
+          Alterar
           <i class="fa fa-pencil"></i>
         </b-button>
         <b-button
           variant="danger"
           @click="$emit('completed', data.item, 'remove')"
+          class="ml-2"
         >
+          Remover
           <i class="fa fa-trash"></i>
         </b-button>
       </template>
     </b-table>
     <b-pagination
+      v-if="mode === 'list'"
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
-      
     ></b-pagination>
   </div>
 </template>
@@ -44,12 +44,12 @@ export default {
     resources: { type: Array },
     mode: { type: String },
     fields: { type: Array },
+    perPage: { type: Number, default: 10 },
   },
   data: function () {
     return {
       resource: {},
       smartFields: [{ key: "actions", label: "Ações" }],
-      perPage: 10,
       currentPage: 1,
     };
   },
