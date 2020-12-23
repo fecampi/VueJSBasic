@@ -54,8 +54,9 @@
         </b-col>
       </b-row>
     </SmartForm>
-    <b-button class="mb-2" v-if="mode === 'list'" @click="mode = 'save'">
-      <i style="font-size: 30px;" class="fas fa-user-plus"></i> Criar novo usuário
+    <b-button class="mb-2" v-if="mode === 'list'" @click="setMode('save')">
+      <i style="font-size: 30px" class="fas fa-user-plus"></i> Criar novo
+      usuário
     </b-button>
 
     <SmartTable
@@ -68,18 +69,23 @@
 </template>
 
 <script>
-import Input from "../../../components/Input";
+import { mapState } from "vuex";
+import {  mapMutations } from "vuex";
 
+import Input from "../../../components/Input";
 import SmartTable from "../../../components/SmartTable";
 import SmartForm from "../../../components/SmartForm";
 
 export default {
   name: "UserAdmin",
   components: { Input, SmartForm, SmartTable },
+  computed: {
+    ...mapState("menuStatus", ["mode"]),
+  },
   data: function () {
     return {
       //Tres modos: Deletar, Salvar e Trocar
-      mode: "list",
+      // mode: "list",
       user: {},
       users: [],
       fields: [
@@ -97,6 +103,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("menuStatus", ["setMode"]),
     getRecources() {
       this.$axios.get("users").then((res) => {
         this.users = res.data;
@@ -104,16 +111,17 @@ export default {
     },
 
     cleanFields() {
-      this.mode = "list";
+      this.setMode("list");
       this.user = {};
       this.getRecources();
     },
 
     loadResource(resource, mode = "save") {
-      this.mode = mode;
+      this.setMode(mode);
       this.user = { ...resource };
     },
   },
+
   mounted() {
     this.getRecources();
   },
