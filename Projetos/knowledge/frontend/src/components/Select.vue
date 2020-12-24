@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     recources: { type: Array },
@@ -25,9 +26,10 @@ export default {
     label: String,
     id: String,
     slug: String,
-    mode: String,
   },
   computed: {
+    ...mapState("menuStatus", ["mode"]),
+
     selected: {
       get() {
         return this.value;

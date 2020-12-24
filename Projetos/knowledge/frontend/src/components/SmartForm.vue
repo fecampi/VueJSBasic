@@ -6,20 +6,30 @@
       <slot />
       <b-row>
         <b-col xs="12">
-          <b-button class="mr-2" @click="$emit('completed')">
+          <b-button
+            class="mr-2"
+            @click="$emit('click-back')"
+            variant="outline-secondary"
+          >
             <i class="mr-2 fas fa-step-backward"></i>
             Voltar
-            
-            </b-button>
+          </b-button>
+
           <b-button
-            variant="primary"
+            variant="outline-primary"
             v-if="mode === 'save'"
-            @click="save(resource, resources)"
-            > Salvar <i class="ml-2 fas fa-save"></i></b-button
+            @click="$emit('click-save')"
           >
-          <b-button variant="danger" v-if="mode === 'remove'" @click="remove()"
-            >Excluir <i class="ml-2 fas fa-trash-alt"></i> </b-button
+            <i class="mr-2 fas fa-save" />Salvar
+          </b-button>
+
+          <b-button
+            variant="outline-danger"
+            v-if="mode === 'remove'"
+            @click="$emit('click-remove')"
           >
+            <i class="mr-2 fas fa-trash-alt" />Excluir
+          </b-button>
         </b-col>
       </b-row>
     </b-form>
@@ -27,6 +37,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "SmartCud",
   props: {
@@ -34,22 +45,11 @@ export default {
     resource: { type: Object },
     resources: { type: String },
     smartCudCompleted: Function,
-    mode: { type: String },
   },
 
   methods: {
-    save(resource, resources) {
-      const method = resource.id ? "put" : "post";
-      const id = resource.id ? `/${resource.id}` : "";
-      this.$axios[method](`${resources}${id}`, resource)
-        .then(() => {
-          this.$showSuccess();
-          this.$emit("completed");
-        })
-        .catch(this.$showError);
-    },
-    remove() {
-      const id = this.resource.id;
+    remove(resource) {
+      const id = this[resource].id;
       this.$axios
         .delete(`${this.resources}/${id}`)
         .then(() => {
@@ -58,6 +58,9 @@ export default {
         })
         .catch(this.$showError);
     },
+  },
+  computed: {
+    ...mapState("menuStatus", ["mode"]),
   },
 };
 </script>

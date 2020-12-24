@@ -1,63 +1,56 @@
 <template>
   <div class="article-admin">
-    <b-form>
-      <input id="article-id" type="hidden" v-model="article.id" />
-      <b-form-group label="Nome:" label-for="article-name">
-        <b-form-input
-          id="article-name"
-          type="text"
-          v-model="article.name"
-          required
-          :readonly="mode === 'remove'"
-          placeholder="Informe o Nome do Artigo..."
-        />
-      </b-form-group>
-      <b-form-group label="Descrição" label-for="article-description">
-        <b-form-input
-          id="article-description"
-          type="text"
-          v-model="article.description"
-          required
-          :readonly="mode === 'remove'"
-          placeholder="Informe o Nome do Artigo..."
-        />
-      </b-form-group>
-      <b-form-group
-        v-if="mode === 'save'"
-        label="Imagem (URL):"
-        label-for="article-imageUrl"
-      >
-        <b-form-input
-          id="article-imageUrl"
-          type="text"
-          v-model="article.imageUrl"
-          required
-          :readonly="mode === 'remove'"
-          placeholder="Informe a URL da Imagem..."
-        />
-      </b-form-group>
-      <b-form-group
-        v-if="mode === 'save'"
-        label="Categoria:"
-        label-for="article-categoryId"
-      >
-        <b-form-select
-          id="article-categoryId"
-          :options="categories"
-          v-model="article.categoryId"
-        />
-      </b-form-group>
-      <b-form-group
-        v-if="mode === 'save'"
-        label="Autor:"
-        label-for="article-userId"
-      >
-        <b-form-select
-          id="article-userId"
-          :options="users"
-          v-model="article.userId"
-        />
-      </b-form-group>
+    <SmartForm
+      id="article-id"
+      :resource="article"
+      resources="articles"
+      @completed="cleanFields"
+    >
+      <b-row>
+        <b-col md="6" sm="12">
+          <Input
+            id="article-name"
+            label="Nome: Informe o nome do artigo"
+            v-model="article.name"
+          />
+        </b-col>
+        <b-col md="6" sm="12">
+          <Input
+            id="article-description"
+            label="Descrição: Informe a Descrição do Artigo"
+            v-model="article.description"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="4" sm="12">
+          <Input
+            id="article-imageUrl"
+            label="Imagem (URL): Informe a URL da Imagem..."
+            v-model="article.imageUrl"
+          />
+        </b-col>
+        <b-col md="4" sm="12">
+          <Select
+            id="article-userId"
+            label="Autor:"
+            slug="name"
+            :recource="article"
+            :recources="users"
+            v-model="article.userId"
+          />
+        </b-col>
+        <b-col md="4" sm="12">
+          <Select
+            id="article-categoryId"
+            label="Categoria:"
+            slug="name"
+            :recource="article"
+            :recources="categories"
+            v-model="article.categoryId"
+          />
+        </b-col>
+      </b-row>
       <b-form-group
         v-if="mode === 'save'"
         label="Conteúdo"
@@ -68,60 +61,45 @@
           placeholder="Informe o Conteúdo do Artigo..."
         />
       </b-form-group>
-      <b-button variant="primary" v-if="mode === 'save'" @click="save('article','articles')"
-        >Salvar</b-button
-      >
-      <b-button variant="danger" v-if="mode === 'remove'" @click="remove('article','articles')"
-        >Excluir</b-button
-      >
-      <b-button class="ml-2" @click="reset">Cancelar</b-button>
-    </b-form>
-    <hr />
-    <b-table hover striped :items="articles" :fields="fields">
-      <template slot="cell(actions)" slot-scope="data">
-        <b-button
-          variant="warning"
-          @click="loadArticle(data.item)"
-          class="mr-2"
-        >
-          <i class="fa fa-pencil"></i>
-        </b-button>
-        <b-button variant="danger" @click="loadArticle(data.item, 'remove')">
-          <i class="fa fa-trash"></i>
-        </b-button>
-      </template>
-    </b-table>
-    <b-pagination
-      size="md"
-      v-model="page"
-      :total-rows="count"
-      :per-page="limit"
+    </SmartForm>
+    <b-button
+      class="mb-3"
+      variant="outline-secondary"
+      v-if="mode === 'list'"
+      @click="setMode('save')"
+    >
+      <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
+      Artigo
+    </b-button>
+    <SmartTable
+      :recourses="articles"
+      :fields="fields"
+      @completed="loadArticle"
     />
   </div>
 </template>
 
 <script>
 import { VueEditor } from "vue2-editor";
-
-
+import modeMixin from "../../../mixers/modeMixin";
+import Select from "../../../components/Select";
+import SmartTable from "../../../components/SmartTable";
+import Input from "../../../components/Input";
+import SmartForm from "../../../components/SmartForm";
 export default {
   name: "ArticleAdmin",
-  components: { VueEditor },
+  components: { SmartTable, SmartForm, Input, Select, VueEditor },
+  mixins: [modeMixin],
   data: function () {
     return {
-      mode: "save",
       article: {},
       articles: [],
       categories: [],
       users: [],
-      page: 1,
-      limit: 0,
-      count: 0,
       fields: [
         { key: "id", label: "Código", sortable: true },
         { key: "name", label: "Nome", sortable: true },
         { key: "description", label: "Descrição", sortable: true },
-        { key: "actions", label: "Ações" },
       ],
     };
   },
@@ -129,41 +107,29 @@ export default {
     loadArticles() {
       this.$axios.get(`articles?page=${this.page}`).then((res) => {
         this.articles = res.data.data;
-        this.count = res.data.count;
-        this.limit = res.data.limit;
       });
     },
-    reset() {
-      this.mode = "save";
+    cleanFields() {
+      this.setMode("list");
       this.article = {};
       this.loadArticles();
     },
-   
 
     loadArticle(article, mode = "save") {
-      this.mode = mode;
+      this.setMode(mode);
       this.$axios
         .get(`articles/${article.id}`)
         .then((res) => (this.article = res.data));
     },
     loadCategories() {
       this.$axios.get("categories").then((res) => {
-        this.categories = res.data.map((category) => {
-          return { value: category.id, text: category.path };
-        });
+        this.categories = res.data;
       });
     },
     loadUsers() {
       this.$axios.get("users").then((res) => {
-        this.users = res.data.map((user) => {
-          return { value: user.id, text: `${user.name} - ${user.email}` };
-        });
+        this.users = res.data;
       });
-    },
-  },
-  watch: {
-    page() {
-      this.loadArticles();
     },
   },
   mounted() {

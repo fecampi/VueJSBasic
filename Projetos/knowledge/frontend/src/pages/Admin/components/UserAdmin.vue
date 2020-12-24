@@ -2,10 +2,12 @@
   <div class="user-admin">
     <SmartForm
       id="user-id"
-      :mode="mode"
       :resource="user"
       resources="users"
-      @completed="cleanFields"
+      @completed="reset"
+      @click-back="callViewList"
+      @click-save="callSave(user,'users')"
+      @click-remove="callRemove(user,'users')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -13,7 +15,6 @@
             id="user-name"
             label="Nome: Informe o nome do usuario"
             v-model="user.name"
-            :readonly="mode === 'remove'"
           />
         </b-col>
         <b-col md="6" sm="12">
@@ -21,7 +22,6 @@
             id="user-email"
             label="E-mail: Informe o E-mail do Usuário..."
             v-model="user.email"
-            :readonly="mode === 'remove'"
           />
         </b-col>
       </b-row>
@@ -40,7 +40,6 @@
             type="password"
             label="Senha: Informe a Senha do Usuário..."
             v-model="user.password"
-            :readonly="mode === 'remove'"
           />
         </b-col>
         <b-col md="6" sm="12">
@@ -49,28 +48,31 @@
             type="password"
             label="Confirmação de Senha: Confirme a Senha do Usuário..."
             v-model="user.confirmPassword"
-            :readonly="mode === 'remove'"
           />
         </b-col>
       </b-row>
     </SmartForm>
-    <b-button class="mb-2" v-if="mode === 'list'" @click="setMode('save')">
-      <i style="font-size: 30px" class="fas fa-user-plus"></i> Criar novo
+    <b-button
+      class="mb-3"
+      variant="outline-secondary"
+      v-if="mode === 'list'"
+      @click="setMode('save')"
+    >
+      <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
       usuário
     </b-button>
 
     <SmartTable
-      :mode="mode"
-      :resources="users"
+      :recourses="users"
       :fields="fields"
-      @completed="loadResource"
+      @click-edit="callViewSave"
+      @click-delete="callViewRemove"
     />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import {  mapMutations } from "vuex";
+import modeMixin from "../../../mixers/modeMixin";
 
 import Input from "../../../components/Input";
 import SmartTable from "../../../components/SmartTable";
@@ -78,10 +80,8 @@ import SmartForm from "../../../components/SmartForm";
 
 export default {
   name: "UserAdmin",
+  mixins: [modeMixin],
   components: { Input, SmartForm, SmartTable },
-  computed: {
-    ...mapState("menuStatus", ["mode"]),
-  },
   data: function () {
     return {
       //Tres modos: Deletar, Salvar e Trocar
@@ -103,27 +103,56 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("menuStatus", ["setMode"]),
-    getRecources() {
+    reset() {
+      this.setMode("list");
+      this.user = {};
+      this.$axios.get("users").then((res) => {
+        this.users = res.data;
+      });
+    },
+    callViewList() {
+      this.setMode("list");
+      this.user = {};
       this.$axios.get("users").then((res) => {
         this.users = res.data;
       });
     },
 
-    cleanFields() {
-      this.setMode("list");
-      this.user = {};
-      this.getRecources();
+    callViewSave(recource) {
+      this.setMode("save");
+      this.user = { ...recource };
+    },
+    callViewRemove(recource) {
+      this.setMode("remove");
+      this.user = { ...recource };
     },
 
-    loadResource(resource, mode = "save") {
-      this.setMode(mode);
-      this.user = { ...resource };
+    callSave(recource, recources) {
+      console.log("salvar");
+      const method = recource.id ? "put" : "post";
+      const id = recource.id ? `/${recource.id}` : "";
+      this.$axios[method](`${recources}${id}`, recource)
+        .then(() => {
+          this.$showSuccess();
+          this.reset()
+        })
+        .catch(this.$showError);
+    },
+
+    callRemove(recourse,recourses) {
+      const id = recourse.id;
+      this.$axios
+        .delete(`${recourses}/${id}`)
+        .then(() => {
+          this.$showSuccess();
+          this.reset();
+        })
+        .catch(this.$showError);
     },
   },
 
   mounted() {
-    this.getRecources();
+    this.reset();
   },
 };
 </script>

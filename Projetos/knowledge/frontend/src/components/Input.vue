@@ -11,12 +11,13 @@
       :value="value"
       :required="required"
       v-on:input="updateValue($event)"
-      :readonly="readonly"
+      :readonly="mode === 'remove'"
     />
   </b-form-group>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Input",
   props: {
@@ -44,6 +45,10 @@ export default {
     },
   },
 
+  computed: {
+    ...mapState("menuStatus", ["mode"]),
+  },
+  
   methods: {
     updateValue(value) {
       this.$emit("input", value.target.value);

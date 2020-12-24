@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const baseApiUrl = 'http://localhost:4000'
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NzIyNTg5LCJleHAiOjE2MDg5ODE3ODl9.MxH6yQTFi-OPf3Z-gK5cMbov4M8B6BpiOnulJq3yNZE'
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImZlbGlwZSIsImVtYWlsIjoiZmVsaXBlQGZlbGlwZS5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4NzE2OTk1LCJleHAiOjE2MDg5NzYxOTV9.Xm4ZVAiLuo3Neqan5FLMlveHDq8ea1erudVTQL1hbDA';
 
 Vue.use({
     install(Vue) {
@@ -11,10 +11,12 @@ Vue.use({
             headers: {
                 "Authorization": `Bearer ${token}`
             }
-
         })
 
-         //Intercetar requisição
+    }
+})
+
+     //Intercetar requisição
         // Vue.prototype.$axios.interceptors.request.use(config => {
         //     // console.log(config.method)
         //     // if(config.method == 'post') {
@@ -30,9 +32,7 @@ Vue.use({
         //     for(let chave in res.data) {
         //         array.push({ id: chave, ...res.data[chave] })
         //     }
-          
+
         //     res.data = array
         //     return res
         // }, error => Promise.reject(error))
-    }
-})

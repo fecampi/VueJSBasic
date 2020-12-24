@@ -4,7 +4,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 const options = {
-    timeout: 3000, 
+    timeout: 3000,
 };
 
 Vue.use({
@@ -12,11 +12,11 @@ Vue.use({
         Vue.prototype.$showSuccess = (msg) => {
             (!msg) && (msg = 'Operação realizada com sucesso!')
             Vue.$toast.success(msg);
-        },
+        }
         Vue.prototype.$showError = (e) => {
-            if(e && e.response && e.response.data) {
+            if (e && e.response && e.response.data) {
                 Vue.$toast.error(e.response.data);
-            } else if(typeof e === 'string') {
+            } else if (typeof e === 'string') {
                 Vue.$toast.error(e);
             } else {
                 Vue.$toast.error('Oops.. Erro inesperado! ');

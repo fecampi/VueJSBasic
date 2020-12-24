@@ -1,29 +1,33 @@
 <template>
   <div>
-    <b-table 
-      class="table-sm "
+    <slot />
+    <b-table
+      class="table-sm"
       id="my-table"
       hover
-      :items="resources"
+      :items="recourses"
       :fields="fields.concat(smartFields)"
       v-if="mode === 'list'"
       :per-page="perPage"
       :current-page="currentPage"
       small
     >
-      <template  slot="cell(actions)" slot-scope="data">
+      <template slot="cell(actions)" slot-scope="data">
         
-        <b-button variant="info" @click="$emit('completed', data.item)">
-          Alterar
-          <i class="fa fa-pencil"></i>
+        <b-button
+          class="mr-2"
+          variant="outline-info"
+          @click="$emit('click-edit', data.item)"
+        >
+          <i class="mr-2 fa fa-pencil"></i>
+          Editar
         </b-button>
         <b-button
-          variant="danger"
-          @click="$emit('completed', data.item, 'remove')"
-          class="ml-2"
+          variant="outline-danger"
+          @click="$emit('click-delete', data.item)"
         >
+          <i class="fa fa-trash mr-2"></i>
           Remover
-          <i class="fa fa-trash"></i>
         </b-button>
       </template>
     </b-table>
@@ -38,13 +42,13 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "SmartTable",
   props: {
-    resources: { type: Array },
-    mode: { type: String },
+    recourses: { type: Array },
     fields: { type: Array },
-    perPage: { type: Number, default: 10 },
+    perPage: { type: Number, default: 5 },
   },
   data: function () {
     return {
@@ -53,15 +57,11 @@ export default {
       currentPage: 1,
     };
   },
-  methods: {
-    dataToResource(resource) {
-      console.log({ ...resource });
-    },
-  },
   computed: {
     rows() {
-      return this.resources.length;
+      return this.recourses.length;
     },
+    ...mapState("menuStatus", ["mode"]),
   },
 };
 </script>
