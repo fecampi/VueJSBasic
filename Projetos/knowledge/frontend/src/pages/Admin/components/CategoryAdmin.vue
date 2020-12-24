@@ -4,7 +4,9 @@
       id="category-id"
       :resource="category"
       resources="categories"
-      @completed="cleanFields"
+      @click-back="cleanRecourseAndGetRecoursesInDataBase(category, 'categories')"
+      @click-save="saveRecourseToDataBase(category, 'categories')"
+      @click-remove="removeRecourseToDataBase(category, 'categories')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -38,10 +40,10 @@
     </b-button>
 
     <SmartTable
-      :mode="mode"
       :recourses="categories"
       :fields="fields"
-      @completed="loadResource"
+      @click-button-edit="viewSave"
+      @click-button-delete="viewRemove"
     />
   </div>
 </template>
@@ -67,24 +69,8 @@ export default {
       ],
     };
   },
-  methods: {
-    getResources() {
-      this.$axios.get("categories").then((res) => {
-        this.categories = res.data;
-      });
-    },
-    cleanFields() {
-      this.setMode("list");
-      this.category = {};
-      this.getResources();
-    },
-    loadResource(resource, mode = "save") {
-      this.setMode(mode);
-      this.category = { ...resource };
-    },
-  },
   mounted() {
-    this.getResources();
+    this.cleanRecourseAndGetRecoursesInDataBase(this.category, 'categories');
   },
 };
 </script>

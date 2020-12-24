@@ -4,10 +4,9 @@
       id="user-id"
       :resource="user"
       resources="users"
-      @completed="reset"
-      @click-back="callViewList"
-      @click-save="callSave(user,'users')"
-      @click-remove="callRemove(user,'users')"
+      @click-back="cleanRecourseAndGetRecoursesInDataBase(user, 'users')"
+      @click-save="saveRecourseToDataBase(user, 'users')"
+      @click-remove="removeRecourseToDataBase(user, 'users')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -56,7 +55,7 @@
       class="mb-3"
       variant="outline-secondary"
       v-if="mode === 'list'"
-      @click="setMode('save')"
+      @click="newRecourseView"
     >
       <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
       usuário
@@ -65,8 +64,8 @@
     <SmartTable
       :recourses="users"
       :fields="fields"
-      @click-edit="callViewSave"
-      @click-delete="callViewRemove"
+      @click-button-edit="viewSave"
+      @click-button-delete="viewRemove"
     />
   </div>
 </template>
@@ -103,56 +102,56 @@ export default {
     };
   },
   methods: {
-    reset() {
+
+    cleanRecourseAndGetRecoursesInDataBase(recourse, recources) {
       this.setMode("list");
-      this.user = {};
-      this.$axios.get("users").then((res) => {
-        this.users = res.data;
-      });
-    },
-    callViewList() {
-      this.setMode("list");
-      this.user = {};
-      this.$axios.get("users").then((res) => {
+      this.recourse = {};
+      this.$axios.get(recources).then((res) => {
         this.users = res.data;
       });
     },
 
-    callViewSave(recource) {
+    newRecourseView() {
+      this.setMode("save");
+      this.user = {};
+    },
+
+    viewSave(recource) {
       this.setMode("save");
       this.user = { ...recource };
     },
-    callViewRemove(recource) {
+
+    viewRemove(recource) {
+      console.log()
       this.setMode("remove");
       this.user = { ...recource };
     },
 
-    callSave(recource, recources) {
-      console.log("salvar");
+    saveRecourseToDataBase(recource, recources) {
       const method = recource.id ? "put" : "post";
       const id = recource.id ? `/${recource.id}` : "";
       this.$axios[method](`${recources}${id}`, recource)
         .then(() => {
           this.$showSuccess();
-          this.reset()
+          this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);
         })
         .catch(this.$showError);
     },
 
-    callRemove(recourse,recourses) {
-      const id = recourse.id;
+    removeRecourseToDataBase(recource, recources) {
+      const id = recource.id;
       this.$axios
-        .delete(`${recourses}/${id}`)
+        .delete(`${recources}/${id}`)
         .then(() => {
           this.$showSuccess();
-          this.reset();
+          this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);
         })
         .catch(this.$showError);
     },
   },
 
   mounted() {
-    this.reset();
+    this.cleanRecourseAndGetRecoursesInDataBase(this.user, 'users');
   },
 };
 </script>

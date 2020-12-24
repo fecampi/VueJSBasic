@@ -13,6 +13,7 @@ export default {
   methods: {
     ...mapMutations("menuStatus", ["setMode"]),
   },
+  
 };
 </script>
 

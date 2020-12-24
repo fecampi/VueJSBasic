@@ -8,13 +8,13 @@
     <div class="admin-pages-tabs">
       <b-card no-body>
         <b-tabs card>
-          <b-tab title="Artigos" active>
+          <!-- <b-tab title="Artigos" >
             <ArticleAdmin />
           </b-tab>
           <b-tab title="Categorias">
             <CategoryAdmin />
-          </b-tab>
-          <b-tab title="Usuários">
+          </b-tab> -->
+          <b-tab title="Usuários" active>
             <UserAdmin />
           </b-tab>
         </b-tabs>
@@ -25,13 +25,13 @@
 
 <script>
 import PageTitle from "../../components/template/PageTitle";
-import ArticleAdmin from "./components/ArticleAdmin";
-import CategoryAdmin from "./components/CategoryAdmin";
+// import ArticleAdmin from "./components/ArticleAdmin";
+// import CategoryAdmin from "./components/CategoryAdmin";
 import UserAdmin from "./components/UserAdmin";
 
 export default {
   name: "AdminPages",
-  components: { PageTitle, ArticleAdmin, CategoryAdmin, UserAdmin },
+  components: { PageTitle, UserAdmin },
 };
 </script>
 

@@ -17,14 +17,14 @@
         <b-button
           class="mr-2"
           variant="outline-info"
-          @click="$emit('click-edit', data.item)"
+          @click="$emit('click-button-edit', data.item)"
         >
           <i class="mr-2 fa fa-pencil"></i>
           Editar
         </b-button>
         <b-button
           variant="outline-danger"
-          @click="$emit('click-delete', data.item)"
+          @click="$emit('click-button-delete', data.item)"
         >
           <i class="fa fa-trash mr-2"></i>
           Remover
