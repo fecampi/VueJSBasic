@@ -2,15 +2,14 @@
   <div>
     <slot />
     <b-table
-      class="table-sm"
       id="my-table"
+      class="table-sm"
       hover
       :items="recourses"
       :fields="fields.concat(smartFields)"
       v-if="mode === 'list'"
       :per-page="perPage"
       :current-page="currentPage"
-      small
     >
       <template slot="cell(actions)" slot-scope="data">
         <b-button

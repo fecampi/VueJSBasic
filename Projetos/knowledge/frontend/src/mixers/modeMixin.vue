@@ -6,6 +6,13 @@ import { mapMutations } from "vuex";
 export default {
   name: "modeMixin",
 
+  data: function () {
+    return {
+      countRecources: 0,
+      limitOfResourcePerPage: { type: Number },
+    };
+  },
+
   computed: {
     ...mapState("menuStatus", ["mode"]),
   },
@@ -16,17 +23,9 @@ export default {
     cleanRecourseAndGetRecoursesInDataBase(recourse, recources) {
       this.setMode("list");
       this.recourse = {};
-      if (this.count !== undefined) {
-        this.$axios.get(`${recources}?page=${this.page}`).then((res) => {
-          this[recources] = res.data.data;
-          this.count = res.data.count;
-
-        });
-      } else {
-        this.$axios.get(recources).then((res) => {
-          this[recources] = res.data;
-        });
-      }
+      this.$axios.get(recources).then((res) => {
+        this[recources] = res.data;
+      });
     },
     newRecourseView(old) {
       this.setMode("save");

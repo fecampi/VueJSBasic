@@ -2,7 +2,6 @@
   <div>
     <slot />
     <b-table
-
       small
       hover
       :items="recourses"
@@ -28,13 +27,6 @@
         </b-button>
       </template>
     </b-table>
-    <b-pagination
-      v-if="mode === 'list'"
-      v-model="currentPage"
-      total-rows="count"
-      :per-page="perPage"
- 
-    ></b-pagination>
   </div>
 </template>
 
@@ -43,10 +35,6 @@ import { mapState } from "vuex";
 export default {
   name: "SmartTable",
   props: {
-    limit: { type: Number },
-    count: { type: Number },
-    page: { type: Number },
-    perPage: { type: Number },
 
     recource: { type: String },
     recourses: { type: Array },
@@ -55,7 +43,6 @@ export default {
   data: function () {
     return {
       smartFields: [{ key: "actions", label: "Ações" }],
-      currentPage: 1,
     };
   },
   computed: {
