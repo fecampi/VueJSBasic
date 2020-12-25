@@ -2,15 +2,13 @@
   <div>
     <slot />
     <b-table
-      class="table-sm"
-      id="my-table"
+
+      small
       hover
       :items="recourses"
       :fields="fields.concat(smartFields)"
       v-if="mode === 'list'"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
+
     >
       <template slot="cell(actions)" slot-scope="data">
         <b-button
@@ -33,9 +31,9 @@
     <b-pagination
       v-if="mode === 'list'"
       v-model="currentPage"
-      :total-rows="rows"
+      total-rows="count"
       :per-page="perPage"
-      aria-controls="my-table"
+ 
     ></b-pagination>
   </div>
 </template>
@@ -45,10 +43,14 @@ import { mapState } from "vuex";
 export default {
   name: "SmartTable",
   props: {
+    limit: { type: Number },
+    count: { type: Number },
+    page: { type: Number },
+    perPage: { type: Number },
+
     recource: { type: String },
     recourses: { type: Array },
     fields: { type: Array },
-    perPage: { type: Number, default: 5 },
   },
   data: function () {
     return {
@@ -57,9 +59,6 @@ export default {
     };
   },
   computed: {
-    rows() {
-      return this.recourses.length;
-    },
     ...mapState("menuStatus", ["mode"]),
   },
 };

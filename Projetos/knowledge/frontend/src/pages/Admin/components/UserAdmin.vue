@@ -2,11 +2,11 @@
   <div class="user-admin">
     <SmartForm
       id="user-id"
-      :resource="user"
-      resources="users"
-      @click-back="cleanRecourseAndGetRecoursesInDataBase(user, 'users')"
-      @click-save="saveRecourseToDataBase(user, 'users')"
-      @click-remove="removeRecourseToDataBase(user, 'users')"
+      :recource="user"
+      recources="users"
+      @click-back="cleanRecourseAndGetRecoursesInDataBase(user,'users')"
+      @click-save="saveRecourseToDataBase(user,'users')"
+      @click-remove="removeRecourseToDataBase(user,'users')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -55,13 +55,14 @@
       class="mb-3"
       variant="outline-secondary"
       v-if="mode === 'list'"
-      @click="newRecourseView"
+      @click="newRecourseView('user')"
     >
       <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
       usuário
     </b-button>
 
     <SmartTable
+      recource="user"
       :recourses="users"
       :fields="fields"
       @click-button-edit="viewSave"
@@ -72,11 +73,9 @@
 
 <script>
 import modeMixin from "../../../mixers/modeMixin";
-
 import Input from "../../../components/Input";
 import SmartTable from "../../../components/SmartTable";
 import SmartForm from "../../../components/SmartForm";
-
 export default {
   name: "UserAdmin",
   mixins: [modeMixin],
@@ -101,55 +100,6 @@ export default {
       ],
     };
   },
-  methods: {
-
-    cleanRecourseAndGetRecoursesInDataBase(recourse, recources) {
-      this.setMode("list");
-      this.recourse = {};
-      this.$axios.get(recources).then((res) => {
-        this.users = res.data;
-      });
-    },
-
-    newRecourseView() {
-      this.setMode("save");
-      this.user = {};
-    },
-
-    viewSave(recource) {
-      this.setMode("save");
-      this.user = { ...recource };
-    },
-
-    viewRemove(recource) {
-      console.log()
-      this.setMode("remove");
-      this.user = { ...recource };
-    },
-
-    saveRecourseToDataBase(recource, recources) {
-      const method = recource.id ? "put" : "post";
-      const id = recource.id ? `/${recource.id}` : "";
-      this.$axios[method](`${recources}${id}`, recource)
-        .then(() => {
-          this.$showSuccess();
-          this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);
-        })
-        .catch(this.$showError);
-    },
-
-    removeRecourseToDataBase(recource, recources) {
-      const id = recource.id;
-      this.$axios
-        .delete(`${recources}/${id}`)
-        .then(() => {
-          this.$showSuccess();
-          this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);
-        })
-        .catch(this.$showError);
-    },
-  },
-
   mounted() {
     this.cleanRecourseAndGetRecoursesInDataBase(this.user, 'users');
   },

@@ -10,7 +10,8 @@
       :placeholder="label.slice(label.indexOf(': ') + 2)"
       :value="value"
       :required="required"
-      v-on:input="updateValue($event)"
+      v-on:input="$emit('input',$event.target.value)"
+    
       :readonly="mode === 'remove'"
     />
   </b-form-group>
@@ -49,10 +50,5 @@ export default {
     ...mapState("menuStatus", ["mode"]),
   },
   
-  methods: {
-    updateValue(value) {
-      this.$emit("input", value.target.value);
-    },
-  },
 };
 </script>

@@ -1,9 +1,11 @@
 <template>
   <div class="smart-form">
     <b-form v-if="mode !== 'list'">
-      <!-- input escondido -->
-      <input :id="id" type="hidden" v-model="[resource].id" />
       <slot />
+      <hr />
+      <!-- input escondido -->
+      <input :id="id" type="hidden" v-model="[recource].id" />
+
       <b-row>
         <b-col xs="12">
           <b-button
@@ -42,23 +44,11 @@ export default {
   name: "SmartCud",
   props: {
     id: { type: String },
-    resource: { type: Object },
-    resources: { type: String },
+    recource: { type: Object },
+    recources: { type: String },
     smartCudCompleted: Function,
   },
 
-  methods: {
-    remove(resource) {
-      const id = this[resource].id;
-      this.$axios
-        .delete(`${this.resources}/${id}`)
-        .then(() => {
-          this.$showSuccess();
-          this.$emit("completed");
-        })
-        .catch(this.$showError);
-    },
-  },
   computed: {
     ...mapState("menuStatus", ["mode"]),
   },

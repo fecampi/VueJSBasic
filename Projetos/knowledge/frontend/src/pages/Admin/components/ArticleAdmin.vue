@@ -2,9 +2,11 @@
   <div class="article-admin">
     <SmartForm
       id="article-id"
-      :resource="article"
-      resources="articles"
-      @completed="cleanFields"
+      :recource="article"
+      recources="articles"
+      @click-back="cleanRecourseAndGetRecoursesInDataBase(article, 'articles')"
+      @click-save="saveRecourseToDataBase(article, 'articles')"
+      @click-remove="removeRecourseToDataBase(article, 'articles')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -66,15 +68,19 @@
       class="mb-3"
       variant="outline-secondary"
       v-if="mode === 'list'"
-      @click="setMode('save')"
+      @click="newRecourseView('article')"
     >
       <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
       Artigo
     </b-button>
-    <SmartTable
+    <SmartTablePagination
+      recource="article"
       :recourses="articles"
+      :total-rows=countUpdate
+      :per-page="limit"
       :fields="fields"
-      @completed="loadArticle"
+      @click-button-edit="viewSave"
+      @click-button-delete="viewRemove"
     />
   </div>
 </template>
@@ -83,18 +89,23 @@
 import { VueEditor } from "vue2-editor";
 import modeMixin from "../../../mixers/modeMixin";
 import Select from "../../../components/Select";
-import SmartTable from "../../../components/SmartTable";
+import SmartTablePagination from "../../../components/SmartTablePagination";
 import Input from "../../../components/Input";
 import SmartForm from "../../../components/SmartForm";
 export default {
   name: "ArticleAdmin",
-  components: { SmartTable, SmartForm, Input, Select, VueEditor },
+  components: { SmartTablePagination, SmartForm, Input, Select, VueEditor },
   mixins: [modeMixin],
   data: function () {
     return {
+      limit: 0,
+      count: 0,
+      page: 1,
+
       article: {},
       articles: [],
       categories: [],
+
       users: [],
       fields: [
         { key: "id", label: "Código", sortable: true },
@@ -107,20 +118,12 @@ export default {
     loadArticles() {
       this.$axios.get(`articles?page=${this.page}`).then((res) => {
         this.articles = res.data.data;
+        this.count = res.data.count;
+        this.limit = res.data.limit;
+        console.log(this.count);
       });
     },
-    cleanFields() {
-      this.setMode("list");
-      this.article = {};
-      this.loadArticles();
-    },
 
-    loadArticle(article, mode = "save") {
-      this.setMode(mode);
-      this.$axios
-        .get(`articles/${article.id}`)
-        .then((res) => (this.article = res.data));
-    },
     loadCategories() {
       this.$axios.get("categories").then((res) => {
         this.categories = res.data;
@@ -132,6 +135,12 @@ export default {
       });
     },
   },
+  computed: {
+    countUpdate() {
+      return this.count !== undefined ? this.count : undefined;
+    },
+  },
+
   mounted() {
     this.loadUsers();
     this.loadCategories();

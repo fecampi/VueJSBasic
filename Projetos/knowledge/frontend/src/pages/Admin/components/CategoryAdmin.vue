@@ -2,11 +2,11 @@
   <div class="category-admin">
     <SmartForm
       id="category-id"
-      :resource="category"
-      resources="categories"
-      @click-back="cleanRecourseAndGetRecoursesInDataBase(category, 'categories')"
-      @click-save="saveRecourseToDataBase(category, 'categories')"
-      @click-remove="removeRecourseToDataBase(category, 'categories')"
+      :recource="category"
+      recources="categories"
+      @click-back="cleanRecourseAndGetRecoursesInDataBase(category,'categories')"
+      @click-save="saveRecourseToDataBase(category,'categories')"
+      @click-remove="removeRecourseToDataBase(category,'categories')"
     >
       <b-row>
         <b-col md="6" sm="12">
@@ -33,13 +33,14 @@
       class="mb-3"
       variant="outline-secondary"
       v-if="mode === 'list'"
-      @click="setMode('save')"
+      @click="newRecourseView('category')"
     >
       <i style="font-size: 20px" class="fas fa-plus-circle" /> <br />Criar
       Categoria
     </b-button>
 
     <SmartTable
+      recource="category"
       :recourses="categories"
       :fields="fields"
       @click-button-edit="viewSave"
