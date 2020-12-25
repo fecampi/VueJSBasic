@@ -227,6 +227,8 @@ export default {
       });
     },
   },
+
+  // muda page, sempre que load que possui o dado da page atualizado mudar
   watch: {
     page() {
       this.loadArticles();

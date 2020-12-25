@@ -4,7 +4,7 @@
             :main="category.name" sub="Categoria" />
         <ul>
             <li v-for="article in articles" :key="article.id">
-                <ArticleItem :article="article" />
+                {{article.name}}
             </li>
         </ul>
         <div class="load-more">
@@ -16,14 +16,12 @@
 </template>
 
 <script>
-import { baseApiUrl } from '@/global'
-import axios from 'axios'
-import PageTitle from '../template/PageTitle'
-import ArticleItem from './ArticleItem'
+import PageTitle from '../../components/template/PageTitle'
+
 
 export default {
     name: 'ArticlesByCategory',
-    components: { PageTitle, ArticleItem },
+    components: { PageTitle},
     data: function() {
         return {
             category: {},
@@ -34,16 +32,19 @@ export default {
     },
     methods: {
         getCategory() {
-            const url = `${baseApiUrl}/categories/${this.category.id}`
-            axios(url).then(res => this.category = res.data)
+            const url = `categories/${this.category.id}`
+            this.$axios(url).then(res => this.category = res.data)
         },
         getArticles() {
-            const url = `${baseApiUrl}/categories/${this.category.id}/articles?page=${this.page}`
-            axios(url).then(res => {
+            //consulta paginada
+            const url = `categories/${this.category.id}/articles?page=${this.page}`
+            this.$axios(url).then(res => {
+                //o que tenho mais o que buscar
                 this.articles = this.articles.concat(res.data)
                 this.page++
-
+                // se tamanho igual vazio, não tem nada pra buscar, cancela botão de mais
                 if(res.data.length === 0) this.loadMore = false
+                console.log(res)
             })
         }
     },
@@ -59,6 +60,7 @@ export default {
         }
     },
     mounted() {
+        //pegar o parametro na rota
         this.category.id = this.$route.params.id
         this.getCategory()
         this.getArticles()
