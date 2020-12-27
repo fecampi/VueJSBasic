@@ -138,7 +138,7 @@ import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 
 import { VueEditor } from "vue2-editor";
-import Input from "../../../components/Input";
+import Input from "../templates/Input";
 export default {
   name: "ArticleAdmin",
   components: { VueEditor, Input },
@@ -228,7 +228,7 @@ export default {
     },
   },
 
-  // muda page, sempre que load que possui o dado da page atualizado mudar
+  // mudou a pagina, então atualiza os artigos
   watch: {
     page() {
       this.loadArticles();

@@ -1,6 +1,7 @@
 <template>
     <div class="article-item">
         <router-link :to="{ name: 'articleById', params: { id: article.id } }">
+            <!-- So aparece celular para cima -->
             <div class="article-item-image d-none d-sm-block">
                 <img v-if="article.imageUrl"
                     :src="article.imageUrl"

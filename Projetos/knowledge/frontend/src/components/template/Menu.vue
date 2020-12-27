@@ -6,6 +6,7 @@
 
 <script>
 import { mapState } from "vuex";
+import Tree from 'liquor-tree'
 import { FadeTransition } from "vue2-transitions";
 export default {
   name: "Menu",

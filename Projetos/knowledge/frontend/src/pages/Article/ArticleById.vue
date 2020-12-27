@@ -1,6 +1,7 @@
 <template>
     <div class="article-by-id">
         <PageTitle icon="fa fa-file-o" :main="article.name" :sub="article.description" />
+        <!-- v-html renderiza o conteudo do artigo na div -->
         <div class="article-content" v-html="article.content"></div>
     </div>
 </template>
@@ -48,7 +49,7 @@ export default {
     .article-content img {
         max-width: 100%;
     }
-
+    /* ultimo elemento do artigo não possui margem em baixo */
     .article-content :last-child {
         margin-bottom: 0px;
     }

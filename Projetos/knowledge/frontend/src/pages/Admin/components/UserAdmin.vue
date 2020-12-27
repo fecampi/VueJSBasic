@@ -73,9 +73,9 @@
 
 <script>
 import modeMixin from "../../../mixers/modeMixin";
-import Input from "../../../components/Input";
-import SmartTable from "../../../components/SmartTable";
-import SmartForm from "../../../components/SmartForm";
+import Input from "../templates//Input";
+import SmartTable from "../templates//SmartTable";
+import SmartForm from "../templates//SmartForm";
 export default {
   name: "UserAdmin",
   mixins: [modeMixin],

@@ -5,7 +5,13 @@
         <p>Valor atual: {{ valor }}</p>
         <button @click="valor -= 1">Diminuir 1</button>
         <button @click="valor += 1">Somar 1</button>
-        <p>{{ resultado }}</p>
+        <h1>Método Simples</h1>
+        <p>{{SimpleMethod()}}</p>
+        <h1>Dados computados</h1>
+        <p>{{reversedMessage}}</p>
+        <input type="text" v-model="reversedMessage">
+        <h1>Dados "assistidos"</h1>
+        <p>Mudou: {{touched}}</p>
     </div>
 
 </div>
@@ -14,6 +20,8 @@
         el: '#desafio',
         data: {
             valor: 1,
+            message: 'Que a Força esteja com você! ...',
+            touched: false
 
         },
         beforeCreate() {
@@ -40,23 +48,45 @@
         destroyed() {
             console.log('Destruído')
         },
+
+        //Método de forma simples
+        methods: {
+            SimpleMethod() {
+                return "Método Simples"
+
+            },
+        },
+
+
+
         //Dados sempre atualizados:
+        //Muitas vezes a mesma operação, então é melhor que faça apenas uma unica vez..
+        //só é re-executada se o dado mudar(muito mais eficiente)
+        //se declarar como função ele tem apenas o get
         computed: {
-            resultado() {
-                return this.valor == 10 ? 'Valor Igual a dez' : 'Valor Diferente de dez'
+
+            reversedMessage_so_get() {
+                return this.message.split(" ").reverse().join("")
+            },
+            reversedMessage: {
+                get() {
+                    return this.message.split(" ").reverse().join("")
+                },
+                set(newValue) {
+                    // this.touched = !this.touched ->fazendo um watch
+                    this.message = newValue
+                }
+
             }
         },
         // Algum dado que mudou: mudou campo estado no formulário, colocar cidades do estado
+        //Monitora o reversedMessage
         watch: {
-            resultado() {
-                setTimeout(() => {
-                    this.valor = 0
-                }, 5000)
+            reversedMessage() {
+                this.touched = !this.touched
             },
 
-            // muda page, sempre que load que possui o dado da page atualizado mudar
-            // page() {
-            //     this.loadArticles();
-            // },
-        }
+
+        },
+
     })</script>
