@@ -1,30 +1,120 @@
 <template>
-    <fade-Transition :duration="300">
-  <aside class="menu" v-show="isMenuVisible"></aside>
-      </fade-Transition>
+  <aside class="menu" :style="cssVars" v-show="isMenuVisible">
+    <div class="menu-filter">
+      <i class="fa fa-search fa-lg"></i>
+      <input
+        type="text"
+        placeholder="Digite para filtrar..."
+        v-model="treeFilter"
+        class="filter-field"
+      />
+    </div>
+    <Tree
+      :data="treeData"
+      :options="treeOptions"
+      :filter="treeFilter"
+      ref="tree"
+    />
+  </aside>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import Tree from 'liquor-tree'
-import { FadeTransition } from "vue2-transitions";
+import Tree from "liquor-tree";
+
 export default {
   name: "Menu",
-    components: { FadeTransition },
-  computed: mapState("menuStatus", ["isMenuVisible"]),
-  icon() {
-    return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down";
+  components: { Tree },
+  data: function () {
+    return {
+      listColor: "#fff",
+      treeFilter: "",
+      treeData: this.getTreeData(),
+      treeOptions: {
+        propertyNames: { text: "name" },
+        filter: { emptyText: "Categoria não encontrada" },
+      },
+    };
+  },
+  methods: {
+    icon() {
+      return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down";
+    },
+    getTreeData() {
+      return this.$axios.get("categories/tree").then((res) => res.data);
+    },
+  },
+  computed: {
+    ...mapState("menuStatus", ["isMenuVisible"]),
+    cssVars() {
+      return {
+        "--list-color": this.listColor,
+      };
+    },
   },
 };
 </script>
 <style>
 .menu {
   grid-area: menu;
-  background: linear-gradient(to right, #232526, #414345);
+  background: linear-gradient(to right, #0f0f0f, #414345);
 
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  
+}
+
+.menu a,
+.menu a:hover {
+  color: var(--list-color);
+  text-decoration: none;
+}
+
+.tree-node.selected > .tree-content {
+  background: #398df0;
+}
+
+.tree-node.selected > .tree-content > .tree-anchor {
+  color: #fff;
+}
+
+.menu .tree-node.selected > .tree-content,
+.menu .tree-node .tree-content:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.tree-arrow.has-child {
+  filter: brightness(2);
+}
+
+.menu .menu-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #AAA;
+}
+
+.menu .menu-filter i {
+  color: #AAA;
+  margin-right: 10px;
+}
+
+.menu input {
+  color: #CCC;
+  font-size: 1.3rem;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  background: transparent;
+}
+
+.tree-filter-empty {
+  color: #CCC;
+  font-size: 1.3rem;
+  margin-left: 20px;
 }
 </style>

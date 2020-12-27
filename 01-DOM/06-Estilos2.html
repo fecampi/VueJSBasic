@@ -37,12 +37,12 @@
 	}
 
 	.progresso {
-		background-color: red;
+		background-color: var(--color-bar);
 		height: 100%;
 	}
 </style>
 
-<div id="desafio">
+<div id="desafio" :style="cssVars">
 	<!-- 1) Iniciar a execução do efeito usando botão. 
     O efeito deve alternadamente trocar as classes "destaque" e
     "encolher" para cada chamada de setInteval. Use a div abaixo
@@ -92,10 +92,14 @@
 			<div class="progresso" :style="{width}"></div>
 		</div>
 	</div>
+	<!-- 6) Crie uma barra de progresso simples com setInterval 
+    e binding de estilo. -->
+
 </div>
 <script>new Vue({
 		el: '#desafio',
 		data: {
+			colorBar: "red",
 			classe1: 'destaque',
 			perigo: true,
 			classe3: '',
@@ -129,6 +133,13 @@
 					this.perigo = false
 				}
 			}
-		}
+		},
+		computed: {
+			cssVars() {
+				return {
+					"--color-bar": this.colorBar,
+				};
+			},
+		},
 	})
 </script>
