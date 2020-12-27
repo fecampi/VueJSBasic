@@ -1,5 +1,5 @@
 <template>
-  <aside class="menu" :style="cssVars" v-show="isMenuVisible">
+  <aside class="menu" v-show="isMenuVisible">
     <div class="menu-filter">
       <i class="fa fa-search fa-lg"></i>
       <input
@@ -43,14 +43,22 @@ export default {
     getTreeData() {
       return this.$axios.get("categories/tree").then((res) => res.data);
     },
+    onNodeSelect(node) {
+      this.$router.push({
+        name: "articlesByCategory",
+        params: { id: node.id },
+      });
+
+      if (this.$mq === "xs" || this.$mq === "sm") {
+        this.$store.commit("toggleMenu", false);
+      }
+    },
   },
   computed: {
     ...mapState("menuStatus", ["isMenuVisible"]),
-    cssVars() {
-      return {
-        "--list-color": this.listColor,
-      };
-    },
+  },
+  mounted() {
+    this.$refs.tree.$on("node:selected", this.onNodeSelect);
   },
 };
 </script>
@@ -66,7 +74,7 @@ export default {
 
 .menu a,
 .menu a:hover {
-  color: var(--list-color);
+  color: #fff;
   text-decoration: none;
 }
 

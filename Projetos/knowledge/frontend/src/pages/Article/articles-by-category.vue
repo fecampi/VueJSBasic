@@ -51,6 +51,7 @@ export default {
     watch: {
         $route(to) {
             this.category.id = to.params.id
+            //limpar os artigos a cada mudança de rota
             this.articles = []
             this.page = 1
             this.loadMore = true
