@@ -8,17 +8,6 @@ export default {
 }
 </script>
 
-I
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -54,6 +54,8 @@
 </template>
 
 <script>
+// import axios from "axios";
+// import { baseApiUrl } from "@/global";
 export default {
   data() {
     return {
@@ -74,6 +76,14 @@ export default {
     });
   },
   methods: {
+
+    // axios importando url de global
+    //  loadUsers() {
+    //   const url = `${baseApiUrl}/users`;
+    //   axios.get(url).then((res) => {
+    //     this.users = res.data;
+    //   });
+    // },
     clearFields() {
       this.user.name = "";
       this.user.email = "";

@@ -1,11 +1,7 @@
 <template>
-  <div id="app" :class="{ isMenuVisible }">
-       <Header
-      title="Fecampi"
-      :hideToggle="false"
-      :hideUserDropdown="false"
-    />
-    <Menu />
+  <div id="app" :class="{ 'hide-menu': !isMenuVisible || user }">
+    <Header title="Fecampi" :hideToggle="!user" :hideUserDropdown="!user" />
+    <Menu v-if="user" />
 
     <Content />
     <Footer />
@@ -22,7 +18,10 @@ export default {
   name: "App",
   props: { MenuVisible: { type: Boolean } },
   components: { Header, Menu, Content, Footer },
-  computed: mapState("menuStatus", ["isMenuVisible"]),
+  computed: {
+    ...mapState("menuStatus", ["isMenuVisible","user"]),
+
+  },
 };
 </script>
 
@@ -38,7 +37,6 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #efefef;
 
   height: 100vh;
   display: grid;
@@ -46,14 +44,14 @@ body {
   grid-template-columns: 300px 1fr;
   grid-template-areas:
     "header header"
-    "content content"
-    "footer footer";
-}
-
-#app.isMenuVisible {
-  grid-template-areas:
-    "header header"
     "menu content"
     "menu footer";
+}
+
+#app.hide-menu {
+  grid-template-areas:
+    "header header"
+    "content content"
+    "footer footer";
 }
 </style>
