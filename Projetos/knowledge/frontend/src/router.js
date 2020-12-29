@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AdminPages from './pages/Admin';
 import ArticlesByCategory from './pages/Article/articles-by-category';
 import ArticleById from './pages/Article/ArticleById'
+import Auth from './pages/Auth'
 
 
 
@@ -31,6 +32,11 @@ const routes = [{
     path: '/articles/:id',
     component: ArticleById
 },
+{
+    name: 'auth',
+    path: '/auth',
+    component: Auth
+}
 
 
 ]

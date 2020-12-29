@@ -12,6 +12,7 @@ Vue.use({
         Vue.prototype.$showSuccess = (msg) => {
             (!msg) && (msg = 'Operação realizada com sucesso!')
             Vue.$toast.success(msg);
+          
         }
         Vue.prototype.$showError = (e) => {
             if (e && e.response && e.response.data) {
