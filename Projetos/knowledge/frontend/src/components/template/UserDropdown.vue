@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { userKey } from '@/global'
 import { mapState } from "vuex";
 import Gravatar from "vue-gravatar";
 
@@ -28,7 +29,9 @@ export default {
   computed: mapState("menuStatus", ["user"]),
   methods: {
     logout() {
-      console.log("sair");
+      localStorage.removeItem(userKey);
+      this.$store.commit("setUser", null);
+      this.$router.push({ name: "auth" });
     },
   },
 };

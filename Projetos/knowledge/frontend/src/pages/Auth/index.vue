@@ -30,8 +30,8 @@
         placeholder="Confirme a Senha"
       />
 
-      <button v-if="showSignup" @click="signup">Registrar</button>
-      <button v-else @click="signin">Entrar</button>
+      <button v-if="showSignup" @click="signup(user)">Registrar</button>
+      <button v-else @click="signin(user)">Entrar</button>
 
       <a href @click.prevent="showSignup = !showSignup">
         <span v-if="showSignup">Já tem cadastro? Acesse o Login!</span>
@@ -44,7 +44,6 @@
 <script>
 import { baseApiUrl, userKey } from "@/global";
 import axios from "axios";
-
 export default {
   name: "Auth",
   data: function () {
@@ -54,7 +53,6 @@ export default {
     };
   },
   methods: {
-    //login
     signin() {
       axios
         .post(`${baseApiUrl}/signin`, this.user)
@@ -63,26 +61,17 @@ export default {
           localStorage.setItem(userKey, JSON.stringify(res.data));
           this.$router.push({ path: "/" });
         })
-        .catch(
-          this.$showError(
-            "Ocorreu um erro ao fazer login, cheque as credenciais"
-          )
-        );
+        .catch(this.showError);
     },
-    //cadastro
     signup() {
       axios
         .post(`${baseApiUrl}/signup`, this.user)
         .then(() => {
-          this.$showSuccess("Você já pode fazer seu logon!");
+          this.$showSuccess();
           this.user = {};
           this.showSignup = false;
         })
-        .catch(
-          this.$showError(
-            "Ocorreu um erro ao fazer o cadastro, tente novamente"
-          )
-        );
+        .catch(this.$showError);
     },
   },
 };
