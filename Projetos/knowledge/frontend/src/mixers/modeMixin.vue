@@ -1,5 +1,7 @@
 
 <script>
+import { baseApiUrl } from '@/global'
+import axios from 'axios'
 import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 
@@ -23,7 +25,7 @@ export default {
     cleanRecourseAndGetRecoursesInDataBase(recourse, recources) {
       this.setMode("list");
       this.recourse = {};
-      this.$axios.get(recources).then((res) => {
+      axios.get(`${baseApiUrl}/${recources}`).then((res) => {
         this[recources] = res.data;
       });
     },
@@ -43,7 +45,7 @@ export default {
     saveRecourseToDataBase(recource, recources) {
       const method = recource.id ? "put" : "post";
       const id = recource.id ? `/${recource.id}` : "";
-      this.$axios[method](`${recources}${id}`, recource)
+      axios[method](`${baseApiUrl}/${recources}${id}`, recource)
         .then(() => {
           this.$showSuccess();
           this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);
@@ -52,8 +54,8 @@ export default {
     },
     removeRecourseToDataBase(recource, recources) {
       const id = recource.id;
-      this.$axios
-        .delete(`${recources}/${id}`)
+      axios
+        .delete(`${baseApiUrl}/${recources}/${id}`)
         .then(() => {
           this.$showSuccess();
           this.cleanRecourseAndGetRecoursesInDataBase(recource, recources);

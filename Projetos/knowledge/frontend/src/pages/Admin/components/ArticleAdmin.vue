@@ -27,10 +27,7 @@
           />
         </b-col>
         <b-col md="4" sm="12">
-          <b-form-group
-            label="Categoria:"
-            label-for="article-categoryId"
-          >
+          <b-form-group label="Categoria:" label-for="article-categoryId">
             <b-form-select
               id="article-categoryId"
               :options="categories"
@@ -39,10 +36,7 @@
           </b-form-group>
         </b-col>
         <b-col md="4" sm="12">
-          <b-form-group
-            label="Autor:"
-            label-for="article-userId"
-          >
+          <b-form-group label="Autor:" label-for="article-userId">
             <b-form-select
               id="article-userId"
               :options="users"
@@ -134,6 +128,8 @@
 </template>
 
 <script>
+import { baseApiUrl } from "@/global";
+import axios from "axios";
 import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 
@@ -164,8 +160,8 @@ export default {
   methods: {
     ...mapMutations("menuStatus", ["setMode"]),
     loadArticles() {
-      const url = `articles?page=${this.page}`;
-      this.$axios.get(url).then((res) => {
+      const url = `${baseApiUrl}/articles?page=${this.page}`;
+      axios.get(url).then((res) => {
         this.articles = res.data.data;
         this.count = res.data.count;
         this.limit = res.data.limit;
@@ -186,17 +182,17 @@ export default {
     save() {
       const method = this.article.id ? "put" : "post";
       const id = this.article.id ? `/${this.article.id}` : "";
-      this.$axios[method](`articles${id}`, this.article)
+      axios[method](`${baseApiUrl}/articles${id}`, this.article)
         .then(() => {
           this.$showSuccess();
           this.reset();
         })
-        .catch(this.$showError);
+        .catch();
     },
     remove() {
       const id = this.article.id;
-      this.$axios
-        .delete(`articles/${id}`)
+      axios
+        .delete(`${baseApiUrl}/articles/${id}`)
         .then(() => {
           this.$showSuccess();
           this.reset();
@@ -205,22 +201,21 @@ export default {
     },
     loadArticle(article, mode = "save") {
       this.setMode(mode);
-      this.article = { ...article };
-      const id = article.id;
-      this.$axios
-        .get(`articles/${id}`)
+      axios
+        .get(`${baseApiUrl}/articles/${article.id}`)
         .then((res) => (this.article = res.data));
     },
-
     loadCategories() {
-      this.$axios.get("categories").then((res) => {
+      const url = `${baseApiUrl}/categories`;
+      axios.get(url).then((res) => {
         this.categories = res.data.map((category) => {
           return { value: category.id, text: category.path };
         });
       });
     },
     loadUsers() {
-      this.$axios.get("users").then((res) => {
+      const url = `${baseApiUrl}/users`;
+      axios.get(url).then((res) => {
         this.users = res.data.map((user) => {
           return { value: user.id, text: `${user.name} - ${user.email}` };
         });

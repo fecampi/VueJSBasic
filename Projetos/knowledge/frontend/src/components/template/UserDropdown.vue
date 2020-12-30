@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {  mapMutations } from "vuex";
 import { userKey } from '@/global'
 import { mapState } from "vuex";
 import Gravatar from "vue-gravatar";
@@ -26,11 +27,12 @@ import Gravatar from "vue-gravatar";
 export default {
   name: "UserDropdown",
   components: { Gravatar },
-  computed: mapState("menuStatus", ["user"]),
+  computed: mapState("userAuth", ["user"]),
   methods: {
+         ...mapMutations("userAuth", ["setUser"]),
     logout() {
       localStorage.removeItem(userKey);
-      this.$store.commit("setUser", null);
+      this.setUser(null);
       this.$router.push({ name: "auth" });
     },
   },

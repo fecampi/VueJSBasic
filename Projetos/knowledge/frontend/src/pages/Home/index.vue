@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { baseApiUrl } from '@/global'
 import PageTitle from "@/components/template/PageTitle";
 import Stat from "./components/State";
 
@@ -38,7 +40,7 @@ export default {
   },
   methods: {
     getStats() {
-      this.$axios.get("stats").then((res) => {
+      axios.get(`${baseApiUrl}/stats`).then((res) => {
         this.stat = res.data;
       });
     },

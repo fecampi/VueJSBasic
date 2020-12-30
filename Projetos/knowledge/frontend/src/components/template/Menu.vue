@@ -21,6 +21,9 @@
 <script>
 import { mapState } from "vuex";
 import Tree from "liquor-tree";
+import { baseApiUrl } from "@/global";
+import axios from "axios";
+
 
 export default {
   name: "Menu",
@@ -41,7 +44,8 @@ export default {
       return this.isMenuVisible ? "fa-angle-left" : "fa-angle-down";
     },
     getTreeData() {
-      return this.$axios.get("categories/tree").then((res) => res.data);
+      const url = `${baseApiUrl}/categories/tree`;
+      return axios.get(url).then((res) => res.data);
     },
     onNodeSelect(node) {
       this.$router.push({

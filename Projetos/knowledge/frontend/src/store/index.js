@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import menuStatus from './modules/menuStatus';
-import userAuth from './modules/userAuth';
+import menuStatus from './menuStatus.module';
+import userAuth from './userAuth.module';
+
+
 
 Vue.use(Vuex)
 
