@@ -54,7 +54,7 @@ export default {
     };
   },
   methods: {
-     ...mapMutations("userAuth", ["setUser"]),
+     ...mapMutations('userAuth',["setUser"]),
     signin() {
       axios
         .post(`${baseApiUrl}/signin`, this.user)

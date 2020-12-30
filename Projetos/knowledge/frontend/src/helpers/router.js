@@ -7,7 +7,7 @@ import AdminPages from '@/pages/Admin';
 import ArticlesByCategory from '@/pages/Article/articles-by-category';
 import ArticleById from '@/pages/Article/ArticleById'
 import Auth from '@/pages/Auth'
-import LoginPage from '@/pages/Login'
+
 
 
 
@@ -40,11 +40,6 @@ export const router = new Router({
             path: '/auth',
             component: Auth
         },
-        {
-            name: LoginPage,
-            path: '/login',
-            component: LoginPage
-        }
 
     ]
 });

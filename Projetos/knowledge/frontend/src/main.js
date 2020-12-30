@@ -6,7 +6,7 @@ import App from './App.vue'
 import '@/utils'
 
 //store
-import store from '@/store';
+import store from './store';
 
 
 //Router
