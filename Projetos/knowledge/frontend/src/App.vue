@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ 'hide-menu': !isMenuVisible  }">
+<div id="app" :class="{'hide-menu': !isMenuVisible || !user}">
     <Header title="Fecampi" :hideToggle="!user" :hideUserDropdown="!user" />
     <Menu v-if="user" />
 
@@ -19,8 +19,7 @@ export default {
   props: { MenuVisible: { type: Boolean } },
   components: { Header, Menu, Content, Footer },
   computed: {
-    ...mapState("userAuth", ["user"]),
-    ...mapState("menuStatus", ["isMenuVisible"]),
+    ...mapState("menuStatus", ["isMenuVisible", "user"]),
   },
 };
 </script>

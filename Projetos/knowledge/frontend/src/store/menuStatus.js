@@ -2,12 +2,16 @@ import axios from 'axios';
 export default {
     namespaced: true,
 
+
     state: {
         isMenuVisible: false,
         user: null,
         mode: "list"
     },
     mutations: {
+        setMode(state, mode) {
+            state.mode = mode;
+        },
         toggleMenu(state, isVisible) {
             if (!state.user) {
                 state.isMenuVisible = false
@@ -29,9 +33,10 @@ export default {
                 delete axios.defaults.headers.common['Authorization']
                 state.isMenuVisible = false
             }
-        },
-        setMode(state, mode){
-            state.mode = mode;
         }
     }
 }
+
+
+
+

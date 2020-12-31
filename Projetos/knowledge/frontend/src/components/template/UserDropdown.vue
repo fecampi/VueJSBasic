@@ -27,9 +27,9 @@ import Gravatar from "vue-gravatar";
 export default {
   name: "UserDropdown",
   components: { Gravatar },
-  computed: mapState("userAuth", ["user"]),
+  computed: mapState("menuStatus", ["user"]),
   methods: {
-         ...mapMutations("userAuth", ["setUser"]),
+         ...mapMutations("menuStatus", ["setUser"]),
     logout() {
       localStorage.removeItem(userKey);
       this.setUser(null);

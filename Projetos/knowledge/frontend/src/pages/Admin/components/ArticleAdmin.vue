@@ -35,15 +35,7 @@
             />
           </b-form-group>
         </b-col>
-        <b-col md="4" sm="12">
-          <b-form-group label="Autor:" label-for="article-userId">
-            <b-form-select
-              id="article-userId"
-              :options="users"
-              v-model="article.userId"
-            />
-          </b-form-group>
-        </b-col>
+
       </b-row>
       <b-form-group
         v-if="mode === 'save'"
@@ -156,6 +148,9 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState("menuStatus", ["mode"]),
+  },
 
   methods: {
     ...mapMutations("menuStatus", ["setMode"]),
@@ -233,9 +228,6 @@ export default {
     this.loadUsers();
     this.loadCategories();
     this.loadArticles();
-  },
-  computed: {
-    ...mapState("menuStatus", ["mode"]),
   },
 };
 </script>

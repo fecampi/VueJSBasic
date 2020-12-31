@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { baseApiUrl } from '@/global'
+import axios from 'axios'
 import PageTitle from '../../components/template/PageTitle'
 import ArticleItem from './ArticleItem'
 
@@ -32,19 +34,18 @@ export default {
     },
     methods: {
         getCategory() {
-            const url = `categories/${this.category.id}`
-            this.$axios(url).then(res => this.category = res.data)
+           const url = `${baseApiUrl}/categories/${this.category.id}`
+            axios(url).then(res => this.category = res.data)
         },
         getArticles() {
             //consulta paginada
-            const url = `categories/${this.category.id}/articles?page=${this.page}`
-            this.$axios(url).then(res => {
+             const url = `${baseApiUrl}/categories/${this.category.id}/articles?page=${this.page}`
+            axios(url).then(res => {
                 //o que tenho mais o que buscar
                 this.articles = this.articles.concat(res.data)
                 this.page++
                 // se tamanho igual vazio, não tem nada pra buscar, cancela botão de mais
                 if(res.data.length === 0) this.loadMore = false
-                console.log(res)
             })
         }
     },

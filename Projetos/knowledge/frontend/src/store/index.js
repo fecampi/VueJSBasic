@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import  menuStatus  from './menuStatus';
-import  userAuth  from './userAuth';
 
 
 Vue.use(Vuex);
@@ -10,6 +9,5 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         menuStatus,
-        userAuth
     }
 });
