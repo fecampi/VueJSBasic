@@ -5,7 +5,7 @@ export default {
     state: {
         isMenuVisible: false,
         user: null,
-        status: "list"
+        mode: "list"
     },
     mutations: {
         toggleMenu(state, isVisible) {
@@ -31,7 +31,7 @@ export default {
             }
         },
         setMode(state, mode){
-            state.status = mode;
+            state.mode = mode;
         }
     }
 }
