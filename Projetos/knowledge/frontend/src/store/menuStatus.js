@@ -4,7 +4,8 @@ export default {
 
     state: {
         isMenuVisible: false,
-        user: null
+        user: null,
+        status: "list"
     },
     mutations: {
         toggleMenu(state, isVisible) {
@@ -28,6 +29,9 @@ export default {
                 delete axios.defaults.headers.common['Authorization']
                 state.isMenuVisible = false
             }
+        },
+        setMode(state, mode){
+            state.status = mode;
         }
     }
 }
