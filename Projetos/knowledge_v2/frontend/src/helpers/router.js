@@ -7,6 +7,7 @@ import AdminPages from '@/pages/Admin';
 import ArticlesByCategory from '@/pages/Article/articles-by-category';
 import ArticleById from '@/pages/Article/ArticleById'
 import Auth from '@/pages/Auth'
+import SigninPage from '@/pages/SignIn'
 
 
 import { userKey } from '@/global'
@@ -34,6 +35,11 @@ const routes = [{
     name: 'auth',
     path: '/auth',
     component: Auth
+},
+{
+    name: 'signin',
+    path: '/signin',
+    component: SigninPage
 }]
 
 export const router = new VueRouter({
@@ -44,7 +50,7 @@ export const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const json = localStorage.getItem(userKey)
 
-    if(to.matched.some(record => record.meta.requiresAdmin)) {
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
         const user = JSON.parse(json)
         // verifica se é administrador, se for ->next, se não vai pra raiz
         user && user.admin ? next() : next({ path: '/' })
