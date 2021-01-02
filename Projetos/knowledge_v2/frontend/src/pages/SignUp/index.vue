@@ -3,7 +3,8 @@
     <form @submit.prevent="handleSubmit" class="auth-modal">
       <img src="@/assets/logo.png" width="200" alt="Logo" />
       <hr />
-      <div class="auth-title">Faça seu logon</div>
+      <div class="auth-title">Faça seu cadastro</div>
+      <input v-model="user.name" type="text" placeholder="Nome" />
       <input
         v-model="user.email"
         name="email"
@@ -16,37 +17,45 @@
         type="password"
         placeholder="Senha"
       />
+      <input
+        v-model="user.confirmPassword"
+        type="password"
+        placeholder="Confirme a Senha"
+      />
       <b-button block variant="primary" @click="handleSubmit()"
-        >Entrar</b-button
+        >Cadastrar</b-button
       >
-      <router-link to="/signUp" class="btn btn-link"> Criar conta</router-link>
+      <router-link to="/signin" class="btn btn-link">
+        Voltar para Logon</router-link
+      >
     </form>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
 export default {
   data() {
     return {
       user: {
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
       },
+      submitted: false,
     };
   },
-
-  created() {
-    // this.logout();
-  },
   methods: {
-    ...mapActions("account", ["login", "logout"]),
     handleSubmit() {
-      const { email, password } = this.user;
+      const { name, email, password, confirmPassword } = this.user;
       if (email && password) {
-        this.login({ email, password });
+        this.login({ name,email, password,confirmPassword });
       }
     },
   },
 };
 </script>
+
+<style>
+</style>
+

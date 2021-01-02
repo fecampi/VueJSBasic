@@ -7,7 +7,8 @@ import AdminPages from '@/pages/Admin';
 import ArticlesByCategory from '@/pages/Article/articles-by-category';
 import ArticleById from '@/pages/Article/ArticleById'
 import Auth from '@/pages/Auth'
-import SigninPage from '@/pages/SignIn'
+import SignInPage from '@/pages/SignIn';
+import SignUpPage from '../pages/SignUp';
 
 
 import { userKey } from '@/global'
@@ -39,8 +40,15 @@ const routes = [{
 {
     name: 'signin',
     path: '/signin',
-    component: SigninPage
-}]
+    component: SignInPage
+},
+{
+    name: 'signup',
+    path: '/signup',
+    component: SignUpPage
+}
+
+]
 
 export const router = new VueRouter({
     mode: 'history',

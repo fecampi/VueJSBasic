@@ -21,13 +21,14 @@ export default {
     actions: {
         login(state, { email, password }) {
             userService.login({ email, password }).then(
-                user => {
+                user => { 
                     state.commit('loginSuccess', user);
                     router.push('/');
+                    return user;
                 },
                 error => {
                     state.commit('loginFailure', error);
-                    console.log("erro" + error)
+                    return error
                 }
             );
 
