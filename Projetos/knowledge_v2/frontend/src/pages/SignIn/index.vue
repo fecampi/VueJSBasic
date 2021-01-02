@@ -48,7 +48,8 @@ export default {
       const { email, password } = this.user;
       if (email && password) {
         this.login({ email, password });
-      }
+      } 
+      
     },
   },
 };

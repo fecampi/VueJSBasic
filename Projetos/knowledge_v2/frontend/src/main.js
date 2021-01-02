@@ -10,7 +10,7 @@ import store from './store';
 
 
 //Router
-import {router} from '@/helpers';
+import {router} from '@/_helpers';
 
 Vue.config.productionTip = false
 

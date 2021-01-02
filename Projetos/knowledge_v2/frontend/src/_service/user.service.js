@@ -1,17 +1,20 @@
 import axios from 'axios';
-import { baseApiUrl, userKey } from "@/global";
+import { baseApiUrl, userKey } from "../global";
 
 export const userService = {
-    login
+    login,
+    logout
 };
 
 function login({ email, password }) {
-    axios
+    return axios
         .post(`${baseApiUrl}/signin`, { email, password })
-        .then((res) => {
-            localStorage.setItem(userKey, JSON.stringify(res.data));
+        .then(response => {
+            localStorage.setItem(userKey, JSON.stringify(response.data));
+            return response.data
         })
 }
-
-
+function logout() { 
+    localStorage.removeItem(userKey);
+}
 
